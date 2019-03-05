@@ -14,3 +14,11 @@ services:
       - ./plugins:/plugins
       - ./data:/data
       - ./import:/import
+
+  account-service:
+    container_name: account-service
+    build: ./services/account/
+    ports: 
+      - "3001:3000"
+    links:
+      - neo4j
