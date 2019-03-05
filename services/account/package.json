@@ -1,0 +1,26 @@
+{
+  "name": "linkedtek-account",
+  "version": "1.0.0",
+  "description": "The account service for the linkedtek-account",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "npx nodemon",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "account",
+    "micro-service",
+    "linkedtek"
+  ],
+  "author": "clement.belvisee",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^5.15.1",
+    "nodemon": "^1.18.10"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "express-validator": "^5.3.1"
+  }
+}
