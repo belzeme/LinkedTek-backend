@@ -1,6 +1,7 @@
 module.exports = {
   "env": {
-    "node": true
+    "node": true,
+    "es6": true
   },
   "extends": "eslint:recommended",
   "parserOptions": {
@@ -9,7 +10,7 @@ module.exports = {
   "rules": {
     "indent": [
       "error",
-      4
+      2
     ],
     "linebreak-style": [
       "error",
@@ -36,7 +37,7 @@ module.exports = {
     "no-var": [
       "error"
     ],
-    "prefer-const"; [
+    "prefer-const": [
       "error"
     ],
     "prefer-destructuring": [
