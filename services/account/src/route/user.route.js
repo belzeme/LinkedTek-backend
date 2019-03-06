@@ -6,12 +6,12 @@ router.get('/', (req, res) => {
   res.send(
     {
       methods: [
-        {method: 'GET', description: 'Return this message', path: '.'},
-        {method: 'POST', description: 'Create an user', path: '/login'},
+        { method: 'GET', description: 'Return this message', path: '.' },
+        { method: 'POST', description: 'Create an user', path: '/login' },
       ],
       links: []
     }
-  )
+  );
 });
 
 router.post('/login', userController.validate('createUser'), userController.createUser);

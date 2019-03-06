@@ -1,8 +1,9 @@
+const api = require('../apis/neo4j.api');
+
 exports.createUser = (userData) => {
   return new Promise((resolve, reject) => {
-    console.log('create user', userData);
-    resolve(userData);
+    api.createUser(userData)
+      .then((res) => resolve(res))
+      .catch((error) => reject(error));
   });
-}
-
-console.log(exports);
+};
