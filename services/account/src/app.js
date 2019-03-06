@@ -13,6 +13,6 @@ app.use(bodyParser.json());
 app.use(expressValidator());
 app.use(morgan('dev'));
 
-app.use('/api/auth', userRouter);
+app.use('/api/account', userRouter);
 
 app.listen(port);
