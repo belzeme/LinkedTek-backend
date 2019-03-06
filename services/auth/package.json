@@ -1,0 +1,29 @@
+{
+  "name": "auth-service",
+  "version": "1.0.0",
+  "description": "The authentication service for the linkedtek project",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "npx nodemon",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "authentication",
+    "microservice",
+    "linkedtek"
+  ],
+  "author": "clement.belvisee",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^5.15.1",
+    "nodemon": "^1.18.10"
+  },
+  "dependencies": {
+    "bcrypt": "^3.0.4",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.0",
+    "mongoose": "^5.4.17",
+    "morgan": "^1.9.1"
+  }
+}
