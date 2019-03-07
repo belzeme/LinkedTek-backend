@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const crypto = require('crypto');
+
 const SALT_WORK_FACTOR = 10;
 
 const { Schema } = mongoose;
@@ -16,17 +17,20 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  salt: String
 });
 
 userSchema.pre('save', async function() {
   if (this.isModified('password')) {
-    this.password = await bcrypt.hash(this.password, SALT_WORK_FACTOR);
+    this.salt = crypto.randomBytes(16).toString('hex');
+    this.password = crypto.pbkdf2Sync(this.password, this.salt, SALT_WORK_FACTOR, 64, 'sha512').toString('hex');
   }
 });
 
 userSchema.methods.comparePassword = function(password) {
-  return bcrypt.compareSync(password, this.password);
+  const hash = crypto.pbkdf2Sync(password, this.salt, SALT_WORK_FACTOR, 64, 'sha512').toString('hex');
+  return this.password === hash;
 };
 
 const UserModel = mongoose.model('User', userSchema);

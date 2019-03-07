@@ -7,8 +7,10 @@ const mongoose = require('mongoose');
 const app = express();
 const port = process.env.PORT || 3030;
 const dbName = process.env.dbName || 'test';
+const dbService = process.env.dbService || 'mongodb';
+const dbAddress = process.env.dbAddress || 'localhost';
 
-mongoose.connect(`mongodb://localhost/${dbName}`, { useNewUrlParser: true });
+mongoose.connect(`${dbService}://${dbAddress}:27017/${dbName}`, { useNewUrlParser: true });
 
 
 app.use(bodyParser.json());
