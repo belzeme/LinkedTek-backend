@@ -54,19 +54,22 @@ services:
       - backend
 
 
-  # gateway-service:
-  #   container_name: gateway-service
-  #   build: ./services/gateway
-  #   ports:
-  #     - "3010:3010"
-  #   links:
-  #     - account-service
-  #     - authentication-service
-  #   depends_on:
-  #     - authentication-service
-  #     - account-service
-  #   networks: 
-  #     - backend
+  gateway-service:
+    container_name: gateway-service
+    build: ./services/gateway
+    ports:
+      - "3010:3010"
+    links:
+      - account-service
+      - authentication-service
+    depends_on:
+      - authentication-service
+      - account-service
+    networks: 
+      - backend
+    environment:
+      - AUTH_SERVICE_NAME=authentication-service
+      - AUTH_SERVICE_PORT=3030
 
 networks:
   backend:

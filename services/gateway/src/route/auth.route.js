@@ -1,7 +1,9 @@
 const { Router } = require('express');
 const { create, errorHandler } = require('../adapters/api.adapter');
 
-const BASE_URL = process.env.AUTH_SERVICE_ROUTE || 'http://localhost:3030/api/auth/';
+const AUTH_SERVICE_NAME = process.env.AUTH_SERVICE_NAME || 'localhost';
+const AUTH_SERVICE_PORT = process.env.AUTH_SERVICE_PORT || 3030;
+const BASE_URL = `http://${AUTH_SERVICE_NAME}:${AUTH_SERVICE_PORT}/api/auth/`;
 const api = create(BASE_URL);
 const router = Router();
 
