@@ -1,17 +1,17 @@
 FROM node:latest
 
 # Set working directory
-WORKDIR /account/app
+WORKDIR /gateway/app
 
-# Add `account/src/node_modules/.bin` to $PATH
+# Add `gateway/src/node_modules/.bin` to $PATH
 ENV PATH /usr/src/node_modules/.bin:$PATH
 
 # Install and cache app dependencies
-ADD package.json /account/app/package.json
+ADD package.json /gateway/app/package.json
 RUN npm install
 
 COPY . .
-EXPOSE 3000
+EXPOSE 3010
 
 # Start app
 CMD ["npm", "start"]

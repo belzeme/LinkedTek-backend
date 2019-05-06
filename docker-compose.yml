@@ -14,6 +14,8 @@ services:
       - ./plugins:/plugins
       - ./data:/data
       - ./import:/import
+    networks: 
+      - backend
 
   mongo:
     container_name: mongo
@@ -22,6 +24,8 @@ services:
       - "27017:27017"
     volumes:
       - ./data:/data/mongo/
+    networks: 
+      - backend
 
   account-service:
     container_name: account-service
@@ -32,6 +36,9 @@ services:
       - neo4j
     depends_on:
       - neo4j
+    networks: 
+      - backend
+
 
   authentication-service:
     container_name: authentication-service
@@ -43,3 +50,24 @@ services:
       - mongo
     depends_on:
       - mongo
+    networks: 
+      - backend
+
+
+  # gateway-service:
+  #   container_name: gateway-service
+  #   build: ./services/gateway
+  #   ports:
+  #     - "3010:3010"
+  #   links:
+  #     - account-service
+  #     - authentication-service
+  #   depends_on:
+  #     - authentication-service
+  #     - account-service
+  #   networks: 
+  #     - backend
+
+networks:
+  backend:
+    driver: "bridge"

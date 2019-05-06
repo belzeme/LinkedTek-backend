@@ -8,8 +8,8 @@ const axiosErrorType = {
 
 const errorHandler = (axiosError) => {
   if (axiosError.response) {
-    const { data, status } = axiosError.response;
-    return ({ type: axiosErrorType.response, status, message: data });
+    const { message, status } = axiosError.response;
+    return ({ type: axiosErrorType.response, status, message });
   } else if (axiosError.request) {
     return ({ type: axiosErrorType.request, message: axiosError.request, status: 500 });
   } else {

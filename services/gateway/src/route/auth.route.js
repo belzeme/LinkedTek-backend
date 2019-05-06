@@ -20,7 +20,7 @@ router.get('/ping', (req, res) => {
     })
     .catch(error => {
       const adaptedError = errorHandler(error);
-      res.status(adaptedError.status).send(adaptedError.message);
+      res.status(adaptedError.status).send(error.message);
     });
 });
 
