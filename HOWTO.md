@@ -1,5 +1,13 @@
 # LinkedTek
 
+## Initialisation
+
+In order to initialise the databases, once the docker containers are up run:
+
+``` bash
+  ./scripts/init_db.sh -i
+```
+
 ## User
 
 ### User registration
