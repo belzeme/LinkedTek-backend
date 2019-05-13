@@ -1,14 +1,18 @@
 #!/bin/bash
 
-ORIG=$PWD
+SCRIPT=`realpath $0`
+SCRIPTPATH=`dirname $SCRIPT`
 
 usage() { echo "Usage $0 -i" 1>&2; exit 1; }
- 
+
+[[ $# -eq 0 ]] && usage
 
 while getopts i opt; do
   case $opt in
   i)
-    cd linked_admin
+    cd $SCRIPTPATH/linked_admin
+    echo $SCRIPTPATH
+    echo $PWD
     if [[ ! -e node_modules ]]; then
       npm install
     fi
@@ -16,6 +20,9 @@ while getopts i opt; do
     npm run init-db
     ;;
   \?)
+    usage
+    ;;
+  *)
     usage
     ;;
   esac
