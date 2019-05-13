@@ -31,3 +31,13 @@ exports.createSchool = ({ name }) => {
       .catch((error) => reject(error));
   });
 };
+
+exports.listCountry = () => {
+  const session = driver.session(neo4j.session.READ);
+
+  return new Promise((resolve, reject) => {
+    session.run('MATCH (c: Country) RETURN c')
+      .then((res) => session.close(() => resolve(res.records)))
+      .catch((error) => reject(error));
+  });
+};

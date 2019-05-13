@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
 const userRouter = require('./route/user.route');
 const schoolRouter = require('./route/school.route');
+const countryRouter = require('./route/country.route');
+
 const app = express();
 
 
@@ -15,5 +17,6 @@ app.use(morgan('dev'));
 
 app.use('/api/account', userRouter);
 app.use('/api/school', schoolRouter);
+app.use('/api/country', countryRouter);
 
 app.listen(port);
