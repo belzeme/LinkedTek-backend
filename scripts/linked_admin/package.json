@@ -1,0 +1,23 @@
+{
+  "name": "linkedtek-account",
+  "version": "1.0.0",
+  "description": "The account service for the linkedtek-account",
+  "main": "src/app.js",
+  "scripts": {
+    "init-db": "node ./srcs/init-rel-db.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "admin",
+    "linkedtek"
+  ],
+  "author": "clement.belvisee",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^5.15.1",
+    "nodemon": "^1.18.10"
+  },
+  "dependencies": {
+    "neo4j-driver": "^1.7.2"
+  }
+}
