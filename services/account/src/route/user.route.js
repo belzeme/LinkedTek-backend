@@ -7,12 +7,12 @@ router.get('/', (req, res) => {
     {
       methods: [
         { method: 'GET', description: 'Return this message', path: '.' },
-        { method: 'POST', description: 'Create an user', path: '/login' },
+        { method: 'POST', description: 'Create an user', path: '/create' },
       ],
       links: []
     }
   );
 });
 
-router.post('/login', userController.validate('createUser'), userController.createUser);
+router.post('/create', userController.validate('createUser'), userController.createUser);
 module.exports = router;

@@ -3,6 +3,8 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
 const authRouter = require('./route/auth.route');
+const accountRouter = require('./route/account.route');
+const schoolRouter = require('./route/school.route');
 
 const app = express();
 const port = process.env.PORT || 3010;
@@ -11,4 +13,6 @@ app.use(bodyParser.json());
 app.use(morgan('dev'));
 
 app.use('/auth', authRouter );
+app.use('/account', accountRouter);
+app.use('/school', schoolRouter);
 app.listen(port);

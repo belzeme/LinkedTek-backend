@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { create, errorHandler } = require('../adapters/api.adapter');
-
+const { createUser } = require('../controllers/account.controller');
 const AUTH_SERVICE_NAME = process.env.AUTH_SERVICE_NAME || 'localhost';
 const AUTH_SERVICE_PORT = process.env.AUTH_SERVICE_PORT || 3030;
 const BASE_URL = `http://${AUTH_SERVICE_NAME}:${AUTH_SERVICE_PORT}/api/auth/`;
@@ -28,7 +28,10 @@ router.get('/ping', (req, res) => {
 
 router.post('/register', (req, res) => {
   api.post(req.path, req.body)
-    .then(resp => res.send(resp.data))
+    .then(resp => {
+      createUser(req.body.email, req.body.password);
+      res.send(resp.data);
+    })
     .catch(error => {
       const adaptedError = errorHandler(error);
       res.status(adaptedError.status).send(adaptedError.message);

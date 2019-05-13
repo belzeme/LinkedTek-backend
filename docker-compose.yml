@@ -32,6 +32,10 @@ services:
     build: ./services/account/
     ports: 
       - "3000:3000"
+    environment:
+      - RELATION_DB_URL=bolt://neo4j:7687
+      - RELATION_DB_USER=linkedtek-account-service
+      - RELATION_DB_PASS=linkedtek
     links:
       - neo4j
     depends_on:
@@ -70,6 +74,8 @@ services:
     environment:
       - AUTH_SERVICE_NAME=authentication-service
       - AUTH_SERVICE_PORT=3030
+      - ACCOUNT_SERVICE_NAME=account-service
+      - ACCOUNT_SERVICE_PORT=3000
 
 networks:
   backend:

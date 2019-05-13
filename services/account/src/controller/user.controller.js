@@ -6,7 +6,7 @@ exports.validate = (method) => {
   case 'createUser': {
     return [
       check('email').isEmail(),
-      check('password').exists(),
+      // check('password').exists(),
     ];
   }
   }

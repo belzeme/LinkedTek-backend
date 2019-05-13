@@ -6,15 +6,27 @@ const neo4jCredential = {
 };
 const driver = new neo4j.driver(neo4jURL, neo4j.auth.basic(neo4jCredential.user, neo4jCredential.password));
 
-exports.createUser = ({ email, password }) => {
+exports.createUser = ({ email }) => {
   const session = driver.session(neo4j.session.WRITE);
 
   return new Promise((resolve, reject) => {
-    session.run('CREATE (user: User {email: $email, password: $password})', { email, password })
+    session.run('CREATE (user: User {email: $email})', { email })
       .then((res) => {
         session.close(() => {
           resolve(res.records);
         });
+      })
+      .catch((error) => reject(error));
+  });
+};
+
+exports.createSchool = ({ name }) => {
+  const session = driver.session(neo4j.session.WRITE);
+
+  return new Promise((resolve, reject) => {
+    session.run('CREATE (school: School {name: $name})', { name })
+      .then((res) => {
+        session.close(() => {resolve(res.records);});
       })
       .catch((error) => reject(error));
   });
