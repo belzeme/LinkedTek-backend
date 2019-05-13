@@ -28,7 +28,7 @@ In order to initialise the databases, once the docker containers are up run:
 
 | method | route | body | response |
 | --- | --- | --- | --- |
-|GET| gateway:3010/country/list | N/A | - 200: succes - 4XX: error |
+|GET| gateway:3010/country/list | N/A | - 200: success - 4XX: error |
 
 ## School
 
