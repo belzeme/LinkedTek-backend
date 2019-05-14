@@ -31,7 +31,7 @@ services:
     container_name: account-service
     build: ./services/account/
     ports: 
-      - "3000:3000"
+      - "3020:3000"
     environment:
       - RELATION_DB_URL=bolt://neo4j:7687
       - RELATION_DB_USER=linkedtek-account-service

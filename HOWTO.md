@@ -14,7 +14,7 @@ In order to initialise the databases, once the docker containers are up run:
 
 | method | route | body | response |
 | --- | --- | --- | --- |
-| GET | gateway:3010/auth/register | {email: string, password: string}|   - 200: succes - 4XX: error |
+| POST | gateway:3010/auth/register | {email: string, password: string}|   - 200: succes - 4XX: error |
 
 ### User login
 
