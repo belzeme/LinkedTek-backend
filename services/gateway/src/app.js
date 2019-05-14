@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const authRouter = require('./route/auth.route');
 const accountRouter = require('./route/account.route');
@@ -12,6 +13,7 @@ const port = process.env.PORT || 3010;
 
 app.use(bodyParser.json());
 app.use(morgan('dev'));
+app.use(cors());
 
 app.use('/auth', authRouter );
 app.use('/account', accountRouter);
