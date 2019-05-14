@@ -6,10 +6,15 @@ const BASE_URL = `http://${ACCOUNT_SERVICE_NAME}:${ACCOUNT_SERVICE_PORT}/api/sch
 
 const api = create(BASE_URL);
 
-const createSchool = (name) => {
-  return api.post('/create', name);
+const createSchool = (name, description, country) => {
+  return api.post('/create', { name, description, country });
+};
+
+const listSchool = () => {
+  return api.get('/list');
 };
 
 module.exports = {
-  createSchool
+  createSchool,
+  listSchool
 };

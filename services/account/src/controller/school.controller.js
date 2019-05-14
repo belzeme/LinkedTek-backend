@@ -6,6 +6,8 @@ exports.validate = (method) => {
   case 'createSchool': {
     return [
       check('name').exists(),
+      check('description').exists(),
+      check('country').exists()
     ];
   }
   }
@@ -17,8 +19,13 @@ exports.createSchool = (req, res) => {
     return res.status(422).json({ errors: errors.array() });
   }
 
-  const { name } = req.body;
-  School.createSchool({ name })
+  School.createSchool(req.body)
     .then((schoolData) => res.send(schoolData))
-    .catch((error) => res.status(403).send({ detail: `${error}`, fields: [{ field: name, status: 'already used' }] }));
+    .catch((error) => res.status(403).send({ detail: `${error}`, fields: [{ field: req.body, status: 'already used' }] }));
+};
+
+exports.listSchool = (req, res) => {
+  School.listSchool()
+    .then((schoolList) => res.send(schoolList))
+    .catch((error) => res.status(403).send({ detail: `${error}` }));
 };

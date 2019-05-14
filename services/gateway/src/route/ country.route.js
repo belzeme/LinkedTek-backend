@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { create, errorHandler } = require('../adapters/api.adapter');
-const { adaptCountryList } = require('../adapters/country.adapter');
+const { adaptCountryList } = require('../adapters/data.adapter');
 
 const ACCOUNT_SERVICE_NAME = process.env.ACCOUNT_SERVICE_NAME || 'localhost';
 const ACCOUNT_SERVICE_PORT = process.env.ACCOUNT_SERVICE_PORT || '3000';

@@ -14,7 +14,7 @@ const clearConstants = () => {
 
 const initConstraints = () => {
   console.log('Constraints creation');
-  return session.run('CREATE CONSTRAINT ON (country:Country) assert country.name IS UNIQUE');
+  return session.run(`CREATE CONSTRAINT ON (country:Country) assert country.name IS UNIQUE`);
 };
 
 const initCountry = () => {

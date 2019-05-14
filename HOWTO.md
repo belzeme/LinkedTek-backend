@@ -36,5 +36,10 @@ In order to initialise the databases, once the docker containers are up run:
 
 |method| route | body | response |
 | --- | --- | --- | --- |
-| gateway:3010/school/create| {name: string, description: string, country: string}|
+| POST | gateway:3010/school/create| {name: string, description: string, country: string}|
 
+### School list
+
+|method| route | body | response |
+| --- | --- | --- | --- |
+| GET | gateway:3010/school/list| {name: string, description: string, country: string}|
