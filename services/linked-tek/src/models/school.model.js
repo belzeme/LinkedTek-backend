@@ -1,8 +1,8 @@
-const api = require('../apis/neo4j.api');
+const { schoolApi } = require('../apis');
 
 exports.createSchool = (schoolData) => {
   return new Promise((resolve, reject) => {
-    api.createSchool(schoolData)
+    schoolApi.createSchool(schoolData)
       .then((res) => {
         resolve(res);
       })
@@ -14,7 +14,7 @@ exports.createSchool = (schoolData) => {
 
 exports.listSchool = () => {
   return new Promise((resolve, reject) => {
-    api.listSchool()
+    schoolApi.listSchool()
       .then((res) => {
         resolve(res);
       })

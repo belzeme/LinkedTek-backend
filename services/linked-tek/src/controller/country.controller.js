@@ -1,4 +1,4 @@
-const Country = require('../models/country.model');
+const { Country } = require('../models');
 
 exports.listCountry = (req, res) => {
   Country.listCountry()

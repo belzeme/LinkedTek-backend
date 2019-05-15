@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const countryController = require('../controller/country.controller');
+const { countryController } = require('../controller');
 
 router.get('/', (req, res) => {
   res.send({

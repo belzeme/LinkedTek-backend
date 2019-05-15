@@ -1,8 +1,8 @@
-const api = require('../apis/neo4j.api');
+const { userApi } = require('../apis');
 
-exports.listCountry = () => {
+exports.createUser = (userData) => {
   return new Promise((resolve, reject) => {
-    api.listCountry()
+    userApi.createUser(userData)
       .then((res) => resolve(res))
       .catch((error) => reject(error));
   });

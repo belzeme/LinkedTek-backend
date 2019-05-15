@@ -1,5 +1,5 @@
 const { check, validationResult } = require('express-validator/check');
-const User = require('../models/user.model');
+const { User } = require('../models');
 
 exports.validate = (method) => {
   switch (method) {

@@ -2,9 +2,8 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
-const userRouter = require('./route/user.route');
-const schoolRouter = require('./route/school.route');
-const countryRouter = require('./route/country.route');
+
+const { userRouter, schoolRouter, countryRouter } = require('./routers');
 
 const app = express();
 

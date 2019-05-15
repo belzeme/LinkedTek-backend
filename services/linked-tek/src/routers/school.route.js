@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const routeController = require('../controller/school.controller');
+const { schoolController } = require('../controller');
 
 router.get('/', (req, res) => {
   res.send({
@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
   });
 });
 
-router.post('/create', routeController.validate('createSchool'), routeController.createSchool);
-router.get('/list', routeController.listSchool);
+router.post('/create', schoolController.validate('createSchool'), schoolController.createSchool);
+router.get('/list', schoolController.listSchool);
 
 module.exports = router;
