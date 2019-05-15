@@ -1,11 +1,9 @@
 const { driver } = require('./neo4j.api');
-const userApi = require('./user.api');
-const schoolApi = require('./school.api');
-const countryApi = require('./country.api');
 
 module.exports = {
   driver,
-  userApi,
-  schoolApi,
-  countryApi
+  userApi: require('./user.api'),
+  schoolApi: require('./school.api'),
+  countryApi: require('./country.api'),
+  companyApi: require('./company.api')
 };

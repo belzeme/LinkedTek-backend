@@ -5,7 +5,8 @@ router.get('/', (req, res) => {
   res.send({
     methods: [
       { method: 'GET', description: 'Return the school list', path: '.' },
-      { method: 'POST', descriptoin: 'Creates an school', path: '/create' }
+      { method: 'POST', description: 'Creates an school', path: '/create' },
+      { method: 'GET', description: 'List schools', path: '/list' },
     ],
     links: []
   });

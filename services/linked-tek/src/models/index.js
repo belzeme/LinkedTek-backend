@@ -1,9 +1,6 @@
-const Country = require('./country.model');
-const School = require('./school.model');
-const User = require('./user.model');
-
 module.exports = {
-  Country,
-  School,
-  User
+  Country: require('./country.model'),
+  School: require('./school.model'),
+  User: require('./user.model'),
+  Company: require('./company.model')
 };
