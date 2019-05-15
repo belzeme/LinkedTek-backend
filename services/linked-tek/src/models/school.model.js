@@ -23,3 +23,11 @@ exports.listSchool = () => {
       });
   });
 };
+
+exports.filterSchool = (filterData) => {
+  return new Promise((resolve, reject) => {
+    schoolApi.filterSchool(filterData)
+      .then((res) => resolve(res))
+      .catch((error) => reject(error));
+  });
+};

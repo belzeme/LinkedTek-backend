@@ -27,3 +27,16 @@ exports.listSchool = () => {
       .catch((error) => reject(error));
   });
 };
+
+exports.filterSchool = ({ name }) => {
+  const session = driver.session(neo4j.session.READ);
+
+  return new Promise((resolve, reject) => {
+    session.run(`
+    MATCH (country: Country{name: "${name}"})<-[:SCHOOL_FROM]-(school: School)
+    RETURN school
+    `)
+      .then((res) => session.close(() => resolve(res.records)))
+      .catch((error) => reject(error));
+  });
+};

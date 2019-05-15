@@ -3,11 +3,18 @@ const { School } = require('../models');
 
 exports.validate = (method) => {
   switch(method) {
-  case 'createSchool': {
+  case 'createSchool': 
+  {
     return [
       check('name').exists(),
       check('description').exists(),
       check('country').exists()
+    ];
+  }
+  case 'filterSchool':
+  {
+    return [
+      check('name').exists()
     ];
   }
   }
@@ -27,5 +34,11 @@ exports.createSchool = (req, res) => {
 exports.listSchool = (req, res) => {
   School.listSchool()
     .then((schoolList) => res.send(schoolList))
+    .catch((error) => res.status(403).send({ detail: `${error}` }));
+};
+
+exports.filterSchool = (req, res) => {
+  School.filterSchool(req.body)
+    .then((filtrate) => res.send(filtrate))
     .catch((error) => res.status(403).send({ detail: `${error}` }));
 };

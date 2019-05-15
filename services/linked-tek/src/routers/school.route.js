@@ -13,6 +13,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/create', schoolController.validate('createSchool'), schoolController.createSchool);
+router.post('/filter', schoolController.validate('filterSchool'), schoolController.filterSchool);
 router.get('/list', schoolController.listSchool);
 
 module.exports = router;
