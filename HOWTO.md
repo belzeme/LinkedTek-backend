@@ -22,6 +22,15 @@ In order to initialise the databases, once the docker containers are up run:
 | --- | --- | --- | --- |
 |POST| gateway:3010/auth/login | {email: string, password: string} | - 200: succes - 4XX: error |
 
+### User subscription
+
+| method | route | body | response |
+| --- | --- | --- | --- |
+| POST | gateway:3010/account/subscription | {email: string, target: string, name: string} | |
+| POST | gateway:3010/account/subscription/list | {email: string, target: string | |
+
+__NB__: target possible values are company or school
+
 ## Country
 
 ### List

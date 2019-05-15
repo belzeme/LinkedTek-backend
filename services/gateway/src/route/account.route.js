@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const { create, errorHandler } = require('../adapters/api.adapter');
+const { adaptSchoolList } = require('../adapters/data.adapter');
 
 const ACCOUNT_SERVICE_NAME = process.env.ACCOUNT_SERVICE_NAME || 'localhost';
 const ACCOUNT_SERVICE_PORT = process.env.ACCOUNT_SERVICE_PORT || '3000';
@@ -11,7 +12,9 @@ const router = Router();
 router.get('/', (req, res) => {
   res.send({
     methods: [
-      { method: 'GET', description: 'Return this message', path: '.' }
+      { method: 'GET', description: 'Return this message', path: '.' },
+      { method: 'POST', description: 'Create an account', path: '/create' },
+      { method: 'POST', description: 'Create an subscription', path: '/subscription' },
     ]
   });
 });
@@ -25,4 +28,21 @@ router.post('/create', (req, res) => {
     });
 });
 
+router.post('/subscription', (req, res) => {
+  api.post(req.path, req.body)
+    .then(resp => res.send(resp.data))
+    .catch(error => {
+      const adaptedError = errorHandler(error);
+      res.status(adaptedError.status).send(adaptedError.message);
+    });
+});
+
+router.post('/subscription/list', (req, res) => {
+  api.post(req.path, req.body)
+    .then(resp => res.send(adaptSchoolList(resp.data)))
+    .catch(error => {
+      const adaptedError = errorHandler(error);
+      res.status(adaptedError.status).send(adaptedError.message);
+    });
+});
 module.exports = router;
