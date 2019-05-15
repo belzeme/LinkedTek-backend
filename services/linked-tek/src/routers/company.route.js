@@ -13,5 +13,5 @@ router.get('/', (req, res) => {
 
 router.get('/list', companyController.listCompany);
 router.post('/create', companyController.validate('createCompany'), companyController.createCompany);
-
+router.post('/filter', companyController.validate('filterCompany'), companyController.filterCompany);
 module.exports = router;

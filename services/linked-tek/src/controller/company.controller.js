@@ -10,6 +10,11 @@ exports.validate = (method) => {
       check('country').exists()
     ];
   }
+  case 'filterCompany': {
+    return [
+      check('name').exists()
+    ];
+  }
   }
 };
 
@@ -27,5 +32,11 @@ exports.createCompany = (req, res) => {
 exports.listCompany = (req, res) => {
   Company.listCompany()
     .then((companyList) => res.send(companyList))
+    .catch((error) => res.status(403).send({ detail: `${error}` }));
+};
+
+exports.filterCompany = (req, res) => {
+  Company.filterCompany(req.body)
+    .then((filtrate) => res.send(filtrate))
     .catch((error) => res.status(403).send({ detail: `${error}` }));
 };

@@ -35,4 +35,13 @@ router.get('/list', (req, res) => {
     });
 });
 
+router.post('/filter', (req, res) => {
+  api.post(req.path, req.body)
+    .then(resp => res.send(adaptSchoolList(resp.data)))
+    .catch(error => {
+      const adaptedError = errorHandler(error);
+      res.status(adaptedError.status).send(adaptedError.message);
+    });
+});
+
 module.exports = router;

@@ -27,3 +27,16 @@ exports.listCompany = () => {
       .catch((error) => reject(error));
   });
 };
+
+exports.filterCompany = ({ name }) => {
+  const session = driver.session(neo4j.session.READ);
+
+  return new Promise((resolve, reject) => {
+    session.run(`
+    MATCH (country: Country{name: "${name}"})<-[:COMPANY_FROM]-(company:Company)
+    RETURN company
+    `)
+      .then(res => session.close(() => resolve(res.records)))
+      .catch(error => reject(error));
+  });
+};

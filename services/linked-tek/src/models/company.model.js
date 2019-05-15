@@ -23,3 +23,11 @@ exports.listCompany = () => {
       });
   });
 };
+
+exports.filterCompany = (filterData) => {
+  return new Promise((resolve, reject) => {
+    companyApi.filterCompany(filterData)
+      .then((res) => resolve(res))
+      .catch((error) => reject(error));
+  });
+};
