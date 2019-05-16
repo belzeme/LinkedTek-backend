@@ -17,11 +17,11 @@ router.get('/', (req, res) => {
       { method: 'POST', description: 'Create an account', path: '/create' },
 
       { method: 'POST', description: 'Create an subscription', path: '/subscription' },
-      { method: 'REPORT', description: 'List an user subscription', path: '/subscription' },
+      { method: 'POST', description: 'List an user subscription', path: '/subscription/list' },
       { method: 'DELETE', description: 'Delete an user subscription', path: '/subscription' },
 
       { method: 'POST', description: 'Create an leader', path: '/leader' },
-      { method: 'REPORT', description: 'List an user leaders', path: '/leader' },
+      { method: 'POST', description: 'List an user leaders', path: '/leader/list' },
       { method: 'DELETE', description: 'Delete an user leader', path: '/leader' },
     ]
   });
@@ -45,8 +45,10 @@ router.post('/subscription', (req, res) => {
     });
 });
 
-router.report('/subscription', (req, res) => {
-  api.post(`${req.path}/list`, req.body)
+router.post('/subscription/list', (req, res) => {
+  console.log(req.body);
+  
+  api.post(req.path, req.body)
     .then(resp => res.send(adaptSchoolList(resp.data)))
     .catch(error => {
       const adaptedError = errorHandler(error);
@@ -72,8 +74,8 @@ router.post('/leader', (req, res) => {
     });
 });
 
-router.report('/leader', (req, res) => {
-  api.post(`${req.path}/list`, req.body)
+router.post('/leader/list', (req, res) => {
+  api.post(req.path, req.body)
     .then(resp => res.send(adaptSchoolList(resp.data)))
     .catch(error => {
       const adaptedError = errorHandler(error);
