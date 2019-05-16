@@ -9,6 +9,11 @@ exports.validate = (method) => {
       check('name').exists().isString()
     ];
   }
+  case 'checkUser': {
+    return [
+      check('email').isEmail()
+    ];
+  }
   case 'subscribeUser': {
     return [
       check('email').exists().isEmail(),

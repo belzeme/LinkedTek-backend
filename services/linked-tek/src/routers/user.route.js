@@ -18,11 +18,11 @@ router.get('/', (req, res) => {
 
 router.post('/create', userController.validate('createUser'), userController.createUser);
 
-router.post('/subscription/list', userController.validate('createUser'), userController.listUserSubscription);
+router.post('/subscription/list', userController.validate('checkUser'), userController.listUserSubscription);
 router.post('/subscription', userController.validate('subscribeUser'), userController.subscribeUser);
 router.delete('/subscription', userController.validate('subscribeUser'), userController.deleteUserSubscription);
 
-router.post('/leader/list', userController.validate('createUser'), userController.listLeader);
+router.post('/leader/list', userController.validate('checkUser'), userController.listLeader);
 router.post('/leader', userController.validate('relationData'), userController.addLeader);
 router.delete('/leader', userController.validate('relationData'), userController.deleteLeader);
 
