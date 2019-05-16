@@ -3,7 +3,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
 
-const { accountUser, schoolRouter, countryRouter, companyRouter } = require('./routers');
+const { accountRouter, schoolRouter, countryRouter, companyRouter, userRouter } = require('./routers');
 
 const app = express();
 
@@ -14,8 +14,9 @@ app.use(bodyParser.json());
 app.use(expressValidator());
 app.use(morgan('dev'));
 
-app.use('/api/account', accountUser);
+app.use('/api/account', accountRouter);
 app.use('/api/school', schoolRouter);
 app.use('/api/country', countryRouter);
 app.use('/api/company', companyRouter);
+app.use('/api/user', userRouter);
 app.listen(port);
