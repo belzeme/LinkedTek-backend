@@ -8,6 +8,7 @@ const accountRouter = require('./route/account.route');
 const schoolRouter = require('./route/school.route');
 const countryRouter = require('./route/country.route');
 const companyRouter = require('./route/company.route');
+const userRouter = require('./route/user.route');
 
 const app = express();
 const port = process.env.PORT || 3010;
@@ -21,5 +22,6 @@ app.use('/account', accountRouter);
 app.use('/school', schoolRouter);
 app.use('/country', countryRouter);
 app.use('/company', companyRouter);
+app.use('/user', userRouter);
 
 app.listen(port);
