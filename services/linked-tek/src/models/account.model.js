@@ -1,11 +1,11 @@
-const { userApi } = require('../apis');
+const { accountApi } = require('../apis');
 
 const capitalize = (str) => str ? str.charAt(0).toUpperCase() + str.slice(1).toLowerCase() : str;
 const subscriptionTargetValid = (target) => target && (target === 'Company' || target === 'School');
 
 exports.createUser = (userData) => {
   return new Promise((resolve, reject) => {
-    userApi.createUser(userData)
+    accountApi.createUser(userData)
       .then((res) => resolve(res))
       .catch((error) => reject(error));
   });
@@ -17,7 +17,7 @@ exports.subscribeUser = (subscriptionData) => {
     if (!subscriptionTargetValid(subscriptionData.target)) {
       reject(`${subscriptionData.target} is not a valid value for target.`);
     } else {
-      userApi.subscribeUser(subscriptionData)
+      accountApi.subscribeUser(subscriptionData)
         .then((res) => resolve(res))
         .catch((error) => reject(error));
     }
@@ -30,7 +30,7 @@ exports.listUserSubscription = (subscriptionData) => {
     if (!subscriptionTargetValid(subscriptionData.target)) {
       reject(`${subscriptionData.target} is not a valid value for target.`);
     } else {
-      userApi.listUserSubscription(subscriptionData)
+      accountApi.listUserSubscription(subscriptionData)
         .then((res) => resolve(res))
         .catch((error) => reject(error));
     }
@@ -43,7 +43,7 @@ exports.deleteUserSubscription = (subscriptionData) => {
     if (!subscriptionTargetValid(subscriptionData.target)) {
       reject(`${subscriptionData.target} is not a valid value for target.`);
     } else {
-      userApi.deleteUserSubscription(subscriptionData)
+      accountApi.deleteUserSubscription(subscriptionData)
         .then((res) => resolve(res))
         .catch((error) => reject(error));
     }
@@ -52,7 +52,7 @@ exports.deleteUserSubscription = (subscriptionData) => {
 
 exports.addLeader = (relationData) => {
   return new Promise((resolve, reject) => {
-    userApi.addLeader(relationData)
+    accountApi.addLeader(relationData)
       .then((res) => resolve(res))
       .catch((error) => reject(error));
   });
@@ -60,7 +60,7 @@ exports.addLeader = (relationData) => {
 
 exports.listLeader = (userData) => {
   return new Promise((resolve, reject) => {
-    userApi.listLeader(userData)
+    accountApi.listLeader(userData)
       .then((res) => resolve(res))
       .catch((error) => reject(error));
   });
@@ -68,7 +68,7 @@ exports.listLeader = (userData) => {
 
 exports.deleteLeader = (relationData) => {
   return new Promise((resolve, reject) => {
-    userApi.deleteLeader(relationData)
+    accountApi.deleteLeader(relationData)
       .then((res) => resolve(res))
       .catch((error) => reject(error));
   });

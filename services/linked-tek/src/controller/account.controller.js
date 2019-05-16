@@ -1,5 +1,5 @@
 const { check, validationResult } = require('express-validator/check');
-const { User } = require('../models');
+const { Account } = require('../models');
 
 exports.validate = (method) => {
   switch (method) {
@@ -36,7 +36,7 @@ exports.createUser = (req, res) => {
     return res.status(422).json({ errors: errors.array() });
   }
 
-  User.createUser(req.body)
+  Account.createUser(req.body)
     .then((userData) => res.send(userData))
     .catch((error) => res.status(403).send({ detail: `${error}` }));
 };
@@ -47,7 +47,7 @@ exports.subscribeUser = (req, res) => {
     return res.status(422).json({ errors: errors.array() });
   }
 
-  User.subscribeUser(req.body)
+  Account.subscribeUser(req.body)
     .then((resp) => res.send(resp))
     .catch((error) => res.status(403).send({ detail: `${error}` })); 
 };
@@ -58,7 +58,7 @@ exports.listUserSubscription = (req, res) => {
     return res.status(422).json({ errors: errors.array() });
   }
 
-  User.listUserSubscription(req.body)
+  Account.listUserSubscription(req.body)
     .then((resp) => res.send(resp))
     .catch((error) => res.status(403).send({ detail: `${error}` })); 
 };
@@ -69,7 +69,7 @@ exports.deleteUserSubscription = (req, res) => {
     return res.status(422).send({ errors: errors.array() });
   }
 
-  User.deleteUserSubscription(req.body)
+  Account.deleteUserSubscription(req.body)
     .then((resp) => res.send(resp))
     .catch((error) => res.status(403).send({ detail: `${error}` }));
 };
@@ -80,7 +80,7 @@ exports.addLeader = (req, res) => {
     return res.status(422).json({ errors: errors.array() });
   }
 
-  User.addLeader(req.body)
+  Account.addLeader(req.body)
     .then((resp) => res.send(resp))
     .catch((error) => res.status(403).send({ detail: ` ${error}` }));
 };
@@ -91,7 +91,7 @@ exports.listLeader = (req, res) => {
     return res.status(422).json({ errors: errors.array() });
   }
 
-  User.listLeader(req.body)
+  Account.listLeader(req.body)
     .then((resp) => res.send(resp))
     .catch((error) => res.status(403).send({ detail: ` ${error}` }));
 };
@@ -102,7 +102,7 @@ exports.deleteLeader = (req, res) => {
     return res.status(422).json({ errors: errors.array() });
   }
 
-  User.deleteLeader(req.body)
+  Account.deleteLeader(req.body)
     .then((resp) => res.send(resp))
     .catch((error) => res.status(403).send({ detail: ` ${error}` }));
 };
