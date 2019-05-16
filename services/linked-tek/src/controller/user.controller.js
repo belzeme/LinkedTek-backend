@@ -6,6 +6,7 @@ exports.validate = (method) => {
   case 'createUser': {
     return [
       check('email').isEmail(),
+      check('name').exists().isString()
     ];
   }
   case 'subscribeUser': {
@@ -30,10 +31,9 @@ exports.createUser = (req, res) => {
     return res.status(422).json({ errors: errors.array() });
   }
 
-  const { email, password } = req.body;
-  User.createUser({ email, password })
+  User.createUser(req.body)
     .then((userData) => res.send(userData))
-    .catch((error) => res.status(403).send({ detail: `${error}` , fields: [{ field: email, status: 'already used' }] }));
+    .catch((error) => res.status(403).send({ detail: `${error}` }));
 };
 
 exports.subscribeUser = (req, res) => {

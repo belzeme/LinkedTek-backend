@@ -29,8 +29,9 @@ router.get('/ping', (req, res) => {
 router.post('/register', (req, res) => {
   api.post(req.path, req.body)
     .then(resp => {
-      createUser(req.body.email, req.body.password);
-      res.send(resp.data);
+      createUser(req.body)
+        .then(() => res.send(resp.data))
+        .catch(() => res.send({ detail: 'user creation failed' }));
     })
     .catch(error => {
       const adaptedError = errorHandler(error);
