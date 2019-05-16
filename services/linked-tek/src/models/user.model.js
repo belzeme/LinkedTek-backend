@@ -1,6 +1,7 @@
 const { userApi } = require('../apis');
 
-const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+const capitalize = (str) => str ? str.charAt(0).toUpperCase() + str.slice(1).toLowerCase() : str;
+const subscriptionTargetValid = (target) => target && (target === 'Company' || target === 'School');
 
 exports.createUser = (userData) => {
   return new Promise((resolve, reject) => {
@@ -13,7 +14,7 @@ exports.createUser = (userData) => {
 exports.subscribeUser = (subscriptionData) => {
   return new Promise((resolve, reject) => {
     subscriptionData.target = capitalize(subscriptionData.target);
-    if (!subscriptionData.target || (subscriptionData.target !== 'Company' && subscriptionData.target !== 'School')) {
+    if (!subscriptionTargetValid(subscriptionData.target)) {
       reject(`${subscriptionData.target} is not a valid value for target.`);
     } else {
       userApi.subscribeUser(subscriptionData)
@@ -26,10 +27,23 @@ exports.subscribeUser = (subscriptionData) => {
 exports.listUserSubscription = (subscriptionData) => {
   return new Promise((resolve, reject) => {
     subscriptionData.target = capitalize(subscriptionData.target);
-    if (!subscriptionData.target || (subscriptionData.target !== 'Company' && subscriptionData.target !== 'School')) {
+    if (!subscriptionTargetValid(subscriptionData.target)) {
       reject(`${subscriptionData.target} is not a valid value for target.`);
     } else {
       userApi.listUserSubscription(subscriptionData)
+        .then((res) => resolve(res))
+        .catch((error) => reject(error));
+    }
+  });
+};
+
+exports.deleteUserSubscription = (subscriptionData) => {
+  return new Promise((resolve, reject) => {
+    subscriptionData.target = capitalize(subscriptionData.target);
+    if (!subscriptionTargetValid(subscriptionData.target)) {
+      reject(`${subscriptionData.target} is not a valid value for target.`);
+    } else {
+      userApi.deleteUserSubscription(subscriptionData)
         .then((res) => resolve(res))
         .catch((error) => reject(error));
     }

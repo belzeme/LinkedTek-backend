@@ -40,3 +40,16 @@ exports.listUserSubscription = ({ email, target }) => {
       .catch((error) => session.close(() => reject(error)));
   });
 };
+
+exports.deleteUserSubscription = ({ email, target, name }) => {
+  const session = driver.session(neo4j.session.WRITE);
+
+  return new Promise((resolve, reject) => {
+    session.run(`
+    MATCH (:User {email: "${email}"})-[r:SUBSCRIBED_TO]->(:${target} {name:"${name}"})
+    DELETE r
+    `)
+      .then((res) => session.close(() => resolve(res.records)))
+      .catch((error) => session.close(() => reject(error)));
+  });
+};

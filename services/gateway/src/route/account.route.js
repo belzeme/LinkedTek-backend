@@ -37,12 +37,22 @@ router.post('/subscription', (req, res) => {
     });
 });
 
-router.post('/subscription/list', (req, res) => {
-  api.post(req.path, req.body)
+router.report('/subscription', (req, res) => {
+  api.post(`${req.path}/list`, req.body)
     .then(resp => res.send(adaptSchoolList(resp.data)))
     .catch(error => {
       const adaptedError = errorHandler(error);
       res.status(adaptedError.status).send(adaptedError.message);
     });
 });
+
+router.delete('/subscription', (req, res) => {
+  api.delete(req.path, { data: req.body })
+    .then(resp => res.send(resp.data))
+    .catch((error => {
+      const adaptedError = errorHandler(error);
+      res.status(adaptedError.status).send(adaptedError.message);
+    }));
+});
+
 module.exports = router;

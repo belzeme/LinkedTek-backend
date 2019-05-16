@@ -10,9 +10,9 @@ exports.validate = (method) => {
   }
   case 'subscribeUser': {
     return [
-      check('email').isEmail(),
-      check('target').isString(),
-      check('name').isString(),
+      check('email').exists().isEmail(),
+      check('target').exists().isString(),
+      check('name').exists().isString(),
     ];
   }
   }
@@ -50,4 +50,15 @@ exports.listUserSubscription = (req, res) => {
   User.listUserSubscription(req.body)
     .then((resp) => res.send(resp))
     .catch((error) => res.status(403).send({ detail: `${error}` })); 
+};
+
+exports.deleteUserSubscription = (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).send({ errors: errors.array() });
+  }
+
+  User.deleteUserSubscription(req.body)
+    .then((resp) => res.send(resp))
+    .catch((error) => res.status(403).send({ detail: `${error}` }));
 };
