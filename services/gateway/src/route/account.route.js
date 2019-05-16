@@ -46,8 +46,6 @@ router.post('/subscription', (req, res) => {
 });
 
 router.post('/subscription/list', (req, res) => {
-  console.log(req.body);
-  
   api.post(req.path, req.body)
     .then(resp => res.send(adaptSchoolList(resp.data)))
     .catch(error => {
