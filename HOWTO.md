@@ -40,6 +40,12 @@ __NB__: target possible values are company or school
 | REPORT | gateway:3010/account/leader | {email: string} | |
 | DELETE | gateway:3010/account/leader | {follower: string, leader: string} | |
 
+### User list
+
+| method | route | body | response |
+| --- | --- | --- | --- |
+| POST | gateway:3010/user/list | {name: string} |
+
 ## Country
 
 ### List
