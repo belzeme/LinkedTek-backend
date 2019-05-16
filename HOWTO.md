@@ -32,6 +32,14 @@ In order to initialise the databases, once the docker containers are up run:
 
 __NB__: target possible values are company or school
 
+### User relations
+
+| method | route | body | response |
+| --- | --- | --- | --- |
+| POST | gateway:3010/account/leader | {follower: string, leader: string} | |
+| REPORT | gateway:3010/account/leader | {email: string} | |
+| DELETE | gateway:3010/account/leader | {follower: string, leader: string} | |
+
 ## Country
 
 ### List

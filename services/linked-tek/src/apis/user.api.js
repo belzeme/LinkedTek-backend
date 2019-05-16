@@ -53,3 +53,42 @@ exports.deleteUserSubscription = ({ email, target, name }) => {
       .catch((error) => session.close(() => reject(error)));
   });
 };
+
+exports.addLeader = ({ follower, leader }) => {
+  const session = driver.session(neo4j.session.WRITE);
+
+  return new Promise((resolve, reject) => {
+    session.run(`
+      MATCH (follower: User{email: "${follower}"}), (leader: User{email:"${leader}"})
+      CREATE (follower)-[:FOLLOWS]->(leader)
+    `)
+      .then((res) => session.close(() => resolve(res.records)))
+      .catch((error) => session.close(() => reject(error)));
+  });
+};
+
+exports.listLeader = ({ email }) => {
+  const session = driver.session(neo4j.session.READ);
+
+  return new Promise((resolve, reject) => {
+    session.run(`
+      MATCH (:User{email: "${email}"})-[:FOLLOWS]->(leader:User)
+      RETURN leader
+    `)
+      .then((res) => session.close(() => resolve(res.records)))
+      .catch((error) => session.close(() => reject(error)));
+  });
+};
+
+exports.deleteLeader = ({ follower, leader }) => {
+  const session = driver.session(neo4j.session.WRITE);
+
+  return new Promise((resolve, reject) => {
+    session.run(`
+      MATCH (User{email: "${follower}"})-[r:FOLLOWS]->(:User{email: "${leader}"})
+      DELETE r
+    `)
+      .then((res) => session.close(() => resolve(res.records)))
+      .catch((error) => session.close(() => reject(error)));
+  });
+};

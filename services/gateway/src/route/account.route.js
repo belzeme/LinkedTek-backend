@@ -13,8 +13,16 @@ router.get('/', (req, res) => {
   res.send({
     methods: [
       { method: 'GET', description: 'Return this message', path: '.' },
+
       { method: 'POST', description: 'Create an account', path: '/create' },
+
       { method: 'POST', description: 'Create an subscription', path: '/subscription' },
+      { method: 'REPORT', description: 'List an user subscription', path: '/subscription' },
+      { method: 'DELETE', description: 'Delete an user subscription', path: '/subscription' },
+
+      { method: 'POST', description: 'Create an leader', path: '/leader' },
+      { method: 'REPORT', description: 'List an user leaders', path: '/leader' },
+      { method: 'DELETE', description: 'Delete an user leader', path: '/leader' },
     ]
   });
 });
@@ -54,5 +62,33 @@ router.delete('/subscription', (req, res) => {
       res.status(adaptedError.status).send(adaptedError.message);
     }));
 });
+
+router.post('/leader', (req, res) => {
+  api.post(req.path, req.body)
+    .then(resp => res.send(resp.data))
+    .catch(error => {
+      const adaptedError = errorHandler(error);
+      res.status(adaptedError.status).send(adaptedError.message);
+    });
+});
+
+router.report('/leader', (req, res) => {
+  api.post(`${req.path}/list`, req.body)
+    .then(resp => res.send(adaptSchoolList(resp.data)))
+    .catch(error => {
+      const adaptedError = errorHandler(error);
+      res.status(adaptedError.status).send(adaptedError.message);
+    });
+});
+
+router.delete('/leader', (req, res) => {
+  api.delete(req.path, { data: req.body })
+    .then(resp => res.send(resp.data))
+    .catch(error => {
+      const adaptedError = errorHandler(error);
+      res.status(adaptedError.status).send(adaptedError.message);
+    });
+});
+
 
 module.exports = router;

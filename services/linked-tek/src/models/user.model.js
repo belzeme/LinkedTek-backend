@@ -50,3 +50,26 @@ exports.deleteUserSubscription = (subscriptionData) => {
   });
 };
 
+exports.addLeader = (relationData) => {
+  return new Promise((resolve, reject) => {
+    userApi.addLeader(relationData)
+      .then((res) => resolve(res))
+      .catch((error) => reject(error));
+  });
+};
+
+exports.listLeader = (userData) => {
+  return new Promise((resolve, reject) => {
+    userApi.listLeader(userData)
+      .then((res) => resolve(res))
+      .catch((error) => reject(error));
+  });
+};
+
+exports.deleteLeader = (relationData) => {
+  return new Promise((resolve, reject) => {
+    userApi.deleteLeader(relationData)
+      .then((res) => resolve(res))
+      .catch((error) => reject(error));
+  });
+};

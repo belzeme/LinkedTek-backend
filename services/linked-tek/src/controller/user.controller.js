@@ -15,6 +15,12 @@ exports.validate = (method) => {
       check('name').exists().isString(),
     ];
   }
+  case 'relationData': {
+    return [
+      check('follower').exists().isEmail(),
+      check('leader').exists().isEmail()
+    ];
+  }
   }
 };
 
@@ -61,4 +67,37 @@ exports.deleteUserSubscription = (req, res) => {
   User.deleteUserSubscription(req.body)
     .then((resp) => res.send(resp))
     .catch((error) => res.status(403).send({ detail: `${error}` }));
+};
+
+exports.addLeader = (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+
+  User.addLeader(req.body)
+    .then((resp) => res.send(resp))
+    .catch((error) => res.status(403).send({ detail: ` ${error}` }));
+};
+
+exports.listLeader = (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+
+  User.listLeader(req.body)
+    .then((resp) => res.send(resp))
+    .catch((error) => res.status(403).send({ detail: ` ${error}` }));
+};
+
+exports.deleteLeader = (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+
+  User.deleteLeader(req.body)
+    .then((resp) => res.send(resp))
+    .catch((error) => res.status(403).send({ detail: ` ${error}` }));
 };
