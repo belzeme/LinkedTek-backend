@@ -27,7 +27,7 @@ In order to initialise the databases, once the docker containers are up run:
 | method | route | body | response |
 | --- | --- | --- | --- |
 | POST | gateway:3010/account/subscription | {email: string, target: string, name: string} | |
-| REPORT | gateway:3010/account/subscription | {email: string, target: string} | |
+| POST | gateway:3010/account/subscription | {email: string, target: string} | |
 | DELETE | gateway:3010/account/subscription | {email: string, target: string, name: string} | |
 
 __NB__: target possible values are company or school
@@ -37,7 +37,7 @@ __NB__: target possible values are company or school
 | method | route | body | response |
 | --- | --- | --- | --- |
 | POST | gateway:3010/account/leader | {follower: string, leader: string} | |
-| REPORT | gateway:3010/account/leader | {email: string} | |
+| POST | gateway:3010/account/leader/list | {email: string} | |
 | DELETE | gateway:3010/account/leader | {follower: string, leader: string} | |
 
 ### User list
