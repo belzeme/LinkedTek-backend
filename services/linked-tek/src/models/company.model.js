@@ -31,3 +31,11 @@ exports.filterCompany = (filterData) => {
       .catch((error) => reject(error));
   });
 };
+
+exports.updateCompany = (updateData) => {
+  return new Promise((resolve, reject) => {
+    companyApi.updateCompany(updateData)
+      .then(res => resolve(res))
+      .catch(error => reject(error));
+  });
+};

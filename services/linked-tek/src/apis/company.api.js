@@ -40,3 +40,19 @@ exports.filterCompany = ({ name }) => {
       .catch(error => reject(error));
   });
 };
+
+exports.updateCompany = ({ name, properties }) => {
+  const session = driver.session(neo4j.session.WRITE);
+
+  return new Promise((resolve, reject) => {
+    const querySet = properties.map((property) => `SET company.${property.label}="${property.value}"`);
+
+    session.run(`
+    MATCH (company: Company {name:"${name}"})
+    ${querySet.join('\n')}
+    RETURN company
+    `)
+      .then(res => session.close(() => resolve(res.records)))
+      .catch(error => reject(error));
+  });
+};

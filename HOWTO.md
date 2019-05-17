@@ -73,3 +73,29 @@ __NB__: target possible values are company or school
 |method| route | body | response |
 | --- | --- | --- | --- |
 | POST | gateway:3010/school/filter| {name: string} | [{name: string, description: string}]
+
+## Company
+
+### Company creation
+
+|method| route | body | response |
+| --- | --- | --- | --- |
+| POST | gateway:3010/company/create| {name: string, description: string, country: string}|
+
+### Company list
+
+|method| route | body | response |
+| --- | --- | --- | --- |
+| GET | gateway:3010/company/list| {name: string, description: string, country: string}|
+
+### Filter company
+
+|method| route | body | response |
+| --- | --- | --- | --- |
+| POST | gateway:3010/company/filter| {name: string} | [{name: string, description: string}]
+
+### Edit company
+
+|method| route | body | response |
+| --- | --- | --- | --- |
+| PATCH | gateway:3010/company | {name: string, properties: {[{label: string, value: string}, ...]}} | [{name: string, description: string}]

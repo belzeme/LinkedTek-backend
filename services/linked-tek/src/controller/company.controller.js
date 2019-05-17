@@ -15,6 +15,12 @@ exports.validate = (method) => {
       check('name').exists()
     ];
   }
+  case 'updateCompany': {
+    return [
+      check('name').exists(),
+      check('properties').isArray()
+    ];
+  }
   }
 };
 
@@ -39,4 +45,10 @@ exports.filterCompany = (req, res) => {
   Company.filterCompany(req.body)
     .then((filtrate) => res.send(filtrate))
     .catch((error) => res.status(403).send({ detail: `${error}` }));
+};
+
+exports.updateCompany = (req, res) => {
+  Company.updateCompany(req.body)
+    .then(companyData => res.send(companyData))
+    .catch(error => res.status(403).send({ detail: `${error}` }));
 };

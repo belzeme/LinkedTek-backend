@@ -44,4 +44,13 @@ router.post('/filter', (req, res) => {
     });
 });
 
+router.patch('/', (req, res) => {
+  api.patch(req.path, req.body)
+    .then(resp => res.send(adaptSchoolList(resp.data)))
+    .catch(error => {
+      const adaptedError = errorHandler(error);
+      res.status(adaptedError.status).send(adaptedError.message);
+    });
+});
+
 module.exports = router;
