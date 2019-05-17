@@ -17,6 +17,12 @@ exports.validate = (method) => {
       check('name').exists()
     ];
   }
+  case 'updateSchool': {
+    return [
+      check('name').exists(),
+      check('properties').isArray()
+    ];
+  }
   }
 };
 
@@ -40,5 +46,11 @@ exports.listSchool = (req, res) => {
 exports.filterSchool = (req, res) => {
   School.filterSchool(req.body)
     .then((filtrate) => res.send(filtrate))
+    .catch((error) => res.status(403).send({ detail: `${error}` }));
+};
+
+exports.updateSchool = (req, res) => {
+  School.updateSchool(req.body)
+    .then((data) => res.send(data))
     .catch((error) => res.status(403).send({ detail: `${error}` }));
 };

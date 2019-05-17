@@ -40,3 +40,19 @@ exports.filterSchool = ({ name }) => {
       .catch((error) => reject(error));
   });
 };
+
+exports.updateSchool = ({ name, properties }) => {
+  const session = driver.session(neo4j.session.WRITE);
+
+  return new Promise((resolve, reject) => {
+    const querySet = properties.map((property) => `SET school.${property.label}="${property.value}"`);
+
+    session.run(`
+    MATCH (school: School {name:"${name}"})
+    ${querySet.join('\n')}
+    RETURN school
+    `)
+      .then(res => session.close(() => resolve(res.records)))
+      .catch(error => reject(error));
+  });
+};

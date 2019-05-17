@@ -31,3 +31,11 @@ exports.filterSchool = (filterData) => {
       .catch((error) => reject(error));
   });
 };
+
+exports.updateSchool = (updateData) => {
+  return new Promise((resolve, reject) => {
+    schoolApi.updateSchool(updateData)
+      .then(res => resolve(res))
+      .catch(error => reject(error));
+  });
+};

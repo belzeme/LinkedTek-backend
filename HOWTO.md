@@ -74,6 +74,12 @@ __NB__: target possible values are company or school
 | --- | --- | --- | --- |
 | POST | gateway:3010/school/filter| {name: string} | [{name: string, description: string}]
 
+### Edit school
+
+|method| route | body | response |
+| --- | --- | --- | --- |
+| PATCH | gateway:3010/school | {name: string, properties: {[{label: string, value: string}, ...]}} | [{name: string, description: string}]
+
 ## Company
 
 ### Company creation
