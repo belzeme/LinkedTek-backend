@@ -6,5 +6,6 @@ module.exports = {
   schoolApi: require('./school.api'),
   countryApi: require('./country.api'),
   companyApi: require('./company.api'),
-  userApi: require('./user.api')
+  userApi: require('./user.api'),
+  postApi: require('./post.api'),
 };

@@ -3,5 +3,6 @@ module.exports = {
   School: require('./school.model'),
   Account: require('./account.model'),
   Company: require('./company.model'),
-  User: require('./user.model')
+  User: require('./user.model'),
+  Post: require('./post.model'),
 };
