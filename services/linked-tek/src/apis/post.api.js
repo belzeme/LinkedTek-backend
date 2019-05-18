@@ -45,3 +45,17 @@ exports.updatePost = ({ id, properties }) => {
       .catch(error => reject(error));
   });
 };
+
+exports.deletePost = ({ id }) => {
+  const session = driver.session(neo4j.session.WRITE);
+
+  return new Promise((resolve, reject) => {
+
+    session.run(`
+    MATCH (post: Post) WHERE id(post) = ${id}
+    DETACH DELETE post
+    `)
+      .then(res => session.close(() => resolve(res.records)))
+      .catch(error => reject(error));
+  });
+};

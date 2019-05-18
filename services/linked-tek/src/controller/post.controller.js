@@ -21,6 +21,11 @@ exports.validate = (method) => {
       check('properties').isArray()
     ];
   }
+  case 'deletePost': {
+    return [
+      check('id').isNumeric()
+    ];
+  }
   }
 };
 
@@ -55,6 +60,17 @@ exports.updatePost = (req, res) => {
   }
 
   Post.updatePost(req.body)
+    .then(postData => res.send(postData))
+    .catch(error => res.status(403).send({ detail: `${error}` }));
+};
+
+exports.deletePost = (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+
+  Post.deletePost(req.body)
     .then(postData => res.send(postData))
     .catch(error => res.status(403).send({ detail: `${error}` }));
 };

@@ -42,4 +42,13 @@ router.patch('/', (req, res) => {
     });
 });
 
+router.delete('/', (req, res) => {
+  api.delete(req.path, { data: req.body })
+    .then(() => res.send([]))
+    .catch(error => {
+      const adaptedError = errorHandler(error);
+      res.status(adaptedError.status).send(`${adaptedError.message}`);
+    });
+});
+
 module.exports = router;

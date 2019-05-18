@@ -23,3 +23,11 @@ exports.updatePost = (postData) => {
       .catch(error => reject(error));
   });
 };
+
+exports.deletePost = (postData) => {
+  return new Promise((resolve, reject) => {
+    postApi.deletePost(postData)
+      .then(res => resolve(res))
+      .catch(error => reject(error));
+  });
+};
