@@ -13,4 +13,5 @@ router.get('/', (req, res) => {
 
 router.post('/', postController.validate('createPost'), postController.createPost);
 router.post('/list', postController.validate('listPost'), postController.listPost);
+router.patch('/', postController.validate('updatePost'), postController.updatePost);
 module.exports = router;

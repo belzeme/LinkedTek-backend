@@ -15,6 +15,12 @@ exports.validate = (method) => {
       check('email').isEmail()
     ];
   }
+  case 'updatePost': {
+    return [
+      check('id').isNumeric(),
+      check('properties').isArray()
+    ];
+  }
   }
 };
 
@@ -39,5 +45,16 @@ exports.listPost = (req, res) => {
     .then(postData => {
       res.send(postData);
     })
+    .catch(error => res.status(403).send({ detail: `${error}` }));
+};
+
+exports.updatePost = (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+
+  Post.updatePost(req.body)
+    .then(postData => res.send(postData))
     .catch(error => res.status(403).send({ detail: `${error}` }));
 };

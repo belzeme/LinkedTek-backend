@@ -29,3 +29,19 @@ exports.listPost = ({ email }) => {
       .catch(error => session.close(() => reject(error)));
   });
 };
+
+exports.updatePost = ({ id, properties }) => {
+  const session = driver.session(neo4j.session.WRITE);
+
+  return new Promise((resolve, reject) => {
+    const querySet = properties.map((property) => `SET post.${property.label}="${property.value}"`);
+    
+    session.run(`
+      MATCH (post: Post) WHERE id(post) = ${id}
+      ${querySet.join('\n')}
+      RETURN post
+      `)
+      .then(res => session.close(() => resolve(res.records)))
+      .catch(error => reject(error));
+  });
+};

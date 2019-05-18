@@ -15,3 +15,11 @@ exports.listPost = (queryData) => {
       .catch(error => reject(error));
   });
 };
+
+exports.updatePost = (postData) => {
+  return new Promise((resolve, reject) => {
+    postApi.updatePost(postData)
+      .then(res => resolve(res))
+      .catch(error => reject(error));
+  });
+};
