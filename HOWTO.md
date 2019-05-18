@@ -105,3 +105,29 @@ __NB__: target possible values are company or school
 |method| route | body | response |
 | --- | --- | --- | --- |
 | PATCH | gateway:3010/company | {name: string, properties: {[{label: string, value: string}, ...]}} | [{name: string, description: string}]
+
+## Posts
+
+### Post creation
+
+|method| route | body | response |
+| --- | --- | --- | --- |
+| POST | gateway:3010/post| {email: string, title: string, content: string}|
+
+### Post list
+
+|method| route | body | response |
+| --- | --- | --- | --- |
+| POST | gateway:3010/post/list| {email: string}| [{id: number, title: string, content: string}, ...]
+
+### Post update
+
+|method| route | body | response |
+| --- | --- | --- | --- |
+| PATCH | gateway:3010/post/| {id: number, properties: [{label: string, value: string}, ...]}|
+
+### Post deletion
+
+|method| route | body | response |
+| --- | --- | --- | --- |
+| DELETE | gateway:3010/post| {id: number}|
