@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { create, errorHandler } = require('../adapters/api.adapter');
-// const { adaptNodeId } = require('../adapters/data.adapter');
+const { adaptRespData } = require('../adapters/data.adapter');
 
 const ACCOUNT_SERVICE_NAME = process.env.ACCOUNT_SERVICE_NAME || 'localhost';
 const ACCOUNT_SERVICE_PORT = process.env.ACCOUNT_SERVICE_PORT || '3020';
@@ -18,6 +18,15 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   api.post(req.path, req.body)
     .then(resp => res.send(resp.data))
+    .catch(error => {
+      const adaptedError = errorHandler(error);
+      res.status(adaptedError.status).send(`${adaptedError.message}`);
+    });
+});
+
+router.post('/list', (req, res) => {
+  api.post(req.path, req.body)
+    .then(resp => res.send(adaptRespData(resp.data)))
     .catch(error => {
       const adaptedError = errorHandler(error);
       res.status(adaptedError.status).send(`${adaptedError.message}`);

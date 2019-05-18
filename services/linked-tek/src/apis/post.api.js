@@ -7,12 +7,25 @@ exports.createPost = ({ email, title, content }) => {
   return new Promise((resolve, reject) => {
     session.run(`
       MATCH (u:User {email: "${email}"})
-      CREATE (p:Post {title: "${title}", content: "${content}", creation_time: timestamp()})
+      CREATE (p:Post {title: "${title}", content: "${content}", creation_time: "${new Date().toISOString()}"})
       CREATE (p)-[:POST_FROM]->(u)
     `)
       .then(res => {
         session.close(() => resolve(res.record));
       })
+      .catch(error => session.close(() => reject(error)));
+  });
+};
+
+exports.listPost = ({ email }) => {
+  const session = driver.session(neo4j.session.WRITE);
+
+  return new Promise((resolve, reject) => {
+    session.run(`
+      MATCH (u:User {email: "${email}"})<-[:POST_FROM]-(p:Post)
+      return p
+    `)
+      .then(res => session.close(() => resolve(res.records)))
       .catch(error => session.close(() => reject(error)));
   });
 };
