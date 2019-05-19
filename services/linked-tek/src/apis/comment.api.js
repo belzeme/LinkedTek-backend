@@ -22,8 +22,8 @@ exports.listUserComment = ({ email }) => {
   
   return new Promise((resolve, reject) => {
     session.run(`
-      MATCH (user:User {email: "${email}"})<-[:COMMENT_FROM]-(comment)-[:COMMENT_OF]->(post: Post)
-      RETURN user, comment, post
+      MATCH (user:User {email: "${email}"})<-[:COMMENT_FROM]-(comment)-[:COMMENT_OF]->(post: Post)-[:POST_FROM]->(owner)
+      RETURN user, comment, post, owner
     `)
       .then(res => session.close(() => resolve(res)))
       .catch(error => session.close(() => reject(error)));

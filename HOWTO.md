@@ -142,7 +142,8 @@ __NB__ The description, and email fields depends of the node's type. Namelly if 
 
 |method| route | body | response |
 | --- | --- | --- | --- |
-| POST | gateway:3010/post/list| {email: string}| [{id: number, title: string, content: string}, ...]
+| POST | gateway:3010/post/list| {email: string || id: number}| [{id: number, title: string, content: string}, ...]
+
 
 ### Post update
 
@@ -177,8 +178,9 @@ The list post routes return an array of object that respect the following shcema
   [
     {
       "comment": {"id": number, "content": string},
-      "user": {"id": number, "email": string},
-      "post": {"id": number}
+      "user": {"id": number, "email": string, "name": string},
+      "post": {"id": number},
+      "owner": {"id": number, "email": string, "name": string}
     },
     ...,
   ]

@@ -16,7 +16,8 @@ exports.listUserComment = (userData) => {
           return {
             post: Object.assign({ id: record.get('post').identity.low }, record.get('post').properties),
             user: Object.assign({ id: record.get('user').identity.low }, record.get('user').properties),
-            comment: Object.assign({ id: record.get('comment').identity.low }, record.get('comment').properties)
+            comment: Object.assign({ id: record.get('comment').identity.low }, record.get('comment').properties),
+            owner: Object.assign({ id: record.get('owner').identity.low }, record.get('owner').properties)
           };
         });
         resolve(ret);
