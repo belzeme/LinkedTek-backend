@@ -11,6 +11,6 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', commentController.validate('createComment'), commentController.createComment);
-
+router.post('/user', commentController.validate('listUserComment'), commentController.listUserComment);
 
 module.exports = router;

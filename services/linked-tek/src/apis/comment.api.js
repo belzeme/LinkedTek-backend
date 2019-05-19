@@ -15,3 +15,16 @@ exports.createComment = ({ email, id, content }) => {
       .catch(error => session.close(() => reject(error)));
   });
 };
+
+exports.listUserComment = ({ email }) => {
+  const session = driver.session(neo4j.session.READ);
+  
+  return new Promise((resolve, reject) => {
+    session.run(`
+      MATCH (user:User {email: "${email}"})<-[:COMMENT_FROM]-(comment)-[:COMMENT_OF]->(post: Post)
+      RETURN user, comment, post
+    `)
+      .then(res => session.close(() => resolve(res)))
+      .catch(error => session.close(() => reject(error)));
+  });
+};  

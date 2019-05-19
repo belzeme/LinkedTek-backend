@@ -8,3 +8,19 @@ exports.createComment = (commentData) => {
   });
 };
 
+exports.listUserComment = (userData) => {
+  return new Promise((resolve, reject) => {
+    commentApi.listUserComment(userData)
+      .then(res => {
+        const ret = res.records.map((record) => {
+          return {
+            post: Object.assign({ id: record.get('post').identity.low }, record.get('post').properties),
+            user: Object.assign({ id: record.get('user').identity.low }, record.get('user').properties),
+            comment: Object.assign({ id: record.get('comment').identity.low }, record.get('comment').properties)
+          };
+        });
+        resolve(ret);
+      })
+      .catch(error => reject(error));
+  });
+};

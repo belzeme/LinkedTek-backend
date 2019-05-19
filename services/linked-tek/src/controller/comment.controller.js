@@ -10,6 +10,11 @@ exports.validate = (method) => {
       check('id').isNumeric()
     ];
   }
+  case 'listUserComment': {
+    return [
+      check('email').isEmail()
+    ];
+  }
   }
 };
 
@@ -20,6 +25,17 @@ exports.createComment = (req, res) => {
   }
 
   Comment.createComment(req.body)
+    .then(commentData => res.send(commentData))
+    .catch(error => res.status(403).send({ detail: `${error}` }));
+};
+
+exports.listUserComment = (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+
+  Comment.listUserComment(req.body)
     .then(commentData => res.send(commentData))
     .catch(error => res.status(403).send({ detail: `${error}` }));
 };

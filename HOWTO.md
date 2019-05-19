@@ -136,15 +136,18 @@ __NB__: target possible values are company or school
 
 |method| route | body | response |
 | --- | --- | --- | --- |
-| POST | gateway:3010/post| {email: string, id: number, content: string}|
+| POST | gateway:3010/comment| {email: string, id: number, content: string}|
 
 ### List post's comment
 
-|method| route | body | response |
+|method| route | body | response | detail |
 | --- | --- | --- | --- |
-| POST | gateway:3010/post/comment/list| {id: number}|
+| POST | gateway:3010/post/comment/list| {id: number}|| List the comments of a post |
+| POST | gateway:3010/comment/user | {email: string} || List the comments of an user
 
 #### Post comment response
+
+The list post routes return an array of object that respect the following shcema.
 
 ``` json
   [
