@@ -193,14 +193,11 @@ The list post routes return an array of object that respect the following shcema
 | DELETE | gateway:3010/comment| {id: number}||  |
 | PATCH | gateway:3010/comment | {id: number, properties: {[{label: string, value: string}, ...]}} | [{name: string, description: string}]
 
-
 ### Actuality feed
-
 
 |method| route | body | response | detail |
 | --- | --- | --- | --- |
-| POST | gateway:3010/post/comment/list| {id: number}|| List the comments of a post |
-| POST | gateway:3010/comment/user | {email: string} || List the comments of an user
+| POST | gateway:3010/account/feed| {email: string}|| Get the suggestions of a user. |
 
 #### Actuality feed response
 
