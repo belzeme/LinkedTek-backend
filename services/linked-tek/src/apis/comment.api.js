@@ -28,4 +28,35 @@ exports.listUserComment = ({ email }) => {
       .then(res => session.close(() => resolve(res)))
       .catch(error => session.close(() => reject(error)));
   });
-};  
+};
+
+exports.updateComment = ({ id, properties }) => {
+  const session = driver.session(neo4j.session.WRITE);
+
+  return new Promise((resolve, reject) => {
+    const querySet = properties.map((property) => `SET comment.${property.label}="${property.value}"`);
+
+    session.run(`
+      MATCH (comment: Comment)
+      WHERE id(comment) = ${id}
+      ${querySet.join('\n')}
+      RETURN comment
+    `)
+      .then(res => session.close(() => resolve(res.records)))
+      .catch(error => reject(error));
+  });
+};
+
+exports.deleteComment = ({ id }) => {
+  const session = driver.session(neo4j.session.WRITE);
+
+  return new Promise((resolve, reject) => {
+    session.run(`
+      MATCH (comment: Comment)
+      WHERE id(comment) = ${id}
+      DETACH DELETE comment
+    `)
+      .then(res => session.close(() => resolve(res)))
+      .catch(error => session.close(() => reject(error)));
+  });
+};

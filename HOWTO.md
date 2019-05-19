@@ -186,6 +186,14 @@ The list post routes return an array of object that respect the following shcema
   ]
 ```
 
+### Comment update and deletion
+
+|method| route | body | response | detail |
+| --- | --- | --- | --- | --- |
+| DELETE | gateway:3010/comment| {id: number}||  |
+| PATCH | gateway:3010/comment | {id: number, properties: {[{label: string, value: string}, ...]}} | [{name: string, description: string}]
+
+
 ### Actuality feed
 
 

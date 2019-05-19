@@ -33,4 +33,23 @@ router.post('/user', (req, res) => {
     });
 });
 
+router.patch('/', (req, res) => {
+  api.patch(req.path, req.body)
+    .then(resp => res.send(resp.data))
+    .catch(error => {
+      const adaptedError = errorHandler(error);
+      res.status(adaptedError.status).send(`${adaptedError.message}`);
+    });
+});
+
+
+router.delete('/', (req, res) => {
+  api.delete(req.path, { data: req.body })
+    .then(resp => res.send(resp.data))
+    .catch(error => {
+      const adaptedError = errorHandler(error);
+      res.status(adaptedError.status).send(`${adaptedError.message}`);
+    });
+});
+
 module.exports = router;

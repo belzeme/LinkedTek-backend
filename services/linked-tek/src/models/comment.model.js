@@ -25,3 +25,19 @@ exports.listUserComment = (userData) => {
       .catch(error => reject(error));
   });
 };
+
+exports.updateComment = (commentData) => {
+  return new Promise((resolve, reject) => {
+    commentApi.updateComment(commentData)
+      .then(res => resolve(res.records))
+      .catch(error => reject(error));
+  });
+};
+
+exports.deleteComment = (commentData) => {
+  return new Promise((resolve, reject) => {
+    commentApi.deleteComment(commentData)
+      .then(res => resolve(res.records))
+      .catch(error => reject(error));
+  });
+};
