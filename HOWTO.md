@@ -64,14 +64,11 @@ __NB__ The target field accepts 3 values: School, Company or User
 
 __NB__ The description, and email fields depends of the node's type. Namelly if the node is an user it contains an email otherwise if the node is a school or a company the node contains a description.
 
-
-
 ### User list
 
 | method | route | body | response |
 | --- | --- | --- | --- |
 | POST | gateway:3010/user/list | {name: string} |
-
 
 ## Country
 
