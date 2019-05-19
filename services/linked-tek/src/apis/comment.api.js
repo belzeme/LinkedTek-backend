@@ -7,7 +7,7 @@ exports.createComment = ({ email, id, content }) => {
   return new Promise((resolve, reject) => {
     session.run(`
       MATCH (post: Post) WHERE id(post) = ${id}
-      CREATE (comment:Comment {content:"${content}"})
+      CREATE (comment:Comment {content:"${content}", creation_time:"${new Date().toISOString()}"})
       CREATE (post)<-[:COMMENT_OF]-(comment)-[:COMMENT_FROM]->(: User{email:"${email}"})
       RETURN comment
     `)
