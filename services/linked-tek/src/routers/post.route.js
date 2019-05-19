@@ -15,4 +15,5 @@ router.post('/', postController.validate('createPost'), postController.createPos
 router.post('/list', postController.validate('listPost'), postController.listPost);
 router.patch('/', postController.validate('updatePost'), postController.updatePost);
 router.delete('/', postController.validate('deletePost'), postController.deletePost);
+router.post('/comment/list', postController.validate('deletePost'), postController.listComment);
 module.exports = router;

@@ -137,3 +137,22 @@ __NB__: target possible values are company or school
 |method| route | body | response |
 | --- | --- | --- | --- |
 | POST | gateway:3010/post| {email: string, id: number, content: string}|
+
+### List post's comment
+
+|method| route | body | response |
+| --- | --- | --- | --- |
+| POST | gateway:3010/post/comment/list| {id: number}|
+
+#### Post comment response
+
+``` json
+  [
+    {
+      "comment": {"id": number, "content": string},
+      "user": {"id": number, "email": string},
+      "post": {"id": number}
+    },
+    ...,
+  ]
+```

@@ -59,3 +59,17 @@ exports.deletePost = ({ id }) => {
       .catch(error => reject(error));
   });
 };
+
+exports.listComment = ({ id }) => {
+  const session = driver.session(neo4j.session.READ);
+
+  return new Promise((resolve, reject) => {
+    session.run(`
+      MATCH (post:Post)<-[:COMMENT_OF]-(comment)-[:COMMENT_FROM]->(user)
+      WHERE id(post) = ${id}
+      RETURN post, comment, user
+    `)
+      .then(res => session.close(() => resolve(res)))
+      .catch(error => session.close(() => reject(error)));
+  });
+};
