@@ -40,11 +40,38 @@ __NB__: target possible values are company or school
 | POST | gateway:3010/account/leader/list | {email: string} | |
 | DELETE | gateway:3010/account/leader | {follower: string, leader: string} | |
 
+### User suggestions
+
+| method | route | body | response |
+| --- | --- | --- | --- |
+| POST | gateway:3010/account/suggestion | {email: string} | |
+
+#### User suggestions response
+
+``` json
+  [
+    {
+      "target": string,
+      "id": number,
+      "name": string,
+      "email"?: string,
+      "description"?: string,
+    }
+  ]  
+```
+
+__NB__ The target field accepts 3 values: School, Company or User
+
+__NB__ The description, and email fields depends of the node's type. Namelly if the node is an user it contains an email otherwise if the node is a school or a company the node contains a description.
+
+
+
 ### User list
 
 | method | route | body | response |
 | --- | --- | --- | --- |
 | POST | gateway:3010/user/list | {name: string} |
+
 
 ## Country
 

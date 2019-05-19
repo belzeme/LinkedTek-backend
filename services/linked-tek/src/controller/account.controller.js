@@ -106,3 +106,14 @@ exports.deleteLeader = (req, res) => {
     .then((resp) => res.send(resp))
     .catch((error) => res.status(403).send({ detail: ` ${error}` }));
 };
+
+exports.listSuggestion = (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+
+  Account.listSuggestion(req.body)
+    .then((resp) => res.send(resp))
+    .catch((error) => res.status(403).send({ detail: ` ${error}` })); 
+};

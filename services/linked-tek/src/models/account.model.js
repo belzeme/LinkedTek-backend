@@ -73,3 +73,22 @@ exports.deleteLeader = (relationData) => {
       .catch((error) => reject(error));
   });
 };
+
+exports.listSuggestion = (userData) => {
+  return new Promise((resolve, reject) => {
+    accountApi.listSuggestion(userData)
+      .then(res => {
+        const ret = res.records.reduce((accu, record) => {
+          const nodes = [record.get('leader'), record.get('entity')];
+          nodes.forEach(node => {
+            if (!accu.find(item => item.id === node.identity.low)) {
+              accu.push(Object.assign({ id: node.identity.low, target: node.labels[0] }, node.properties));
+            }
+          });
+          return accu;
+        }, []);
+        resolve(ret);
+      })
+      .catch(error => reject(error));
+  });    
+};

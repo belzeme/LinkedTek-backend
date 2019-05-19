@@ -26,4 +26,5 @@ router.post('/leader/list', accountController.validate('checkUser'), accountCont
 router.post('/leader', accountController.validate('relationData'), accountController.addLeader);
 router.delete('/leader', accountController.validate('relationData'), accountController.deleteLeader);
 
+router.post('/suggestion', accountController.validate('checkUser'), accountController.listSuggestion);
 module.exports = router;

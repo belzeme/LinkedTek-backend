@@ -92,3 +92,16 @@ exports.deleteLeader = ({ follower, leader }) => {
       .catch((error) => session.close(() => reject(error)));
   });
 };
+
+exports.listSuggestion = ({ email }) => {
+  const session = driver.session(neo4j.session.READ);
+
+  return new Promise((resolve, reject) => {
+    session.run(`
+      MATCH (user: User {email:"${email}"})-[:FOLLOWS*2..3]->(leader)-[:SUBSCRIBED_TO*0..3]->(entity)
+      RETURN leader, entity
+    `)
+      .then(res => session.close(() => resolve(res)))
+      .catch(error => session.close(() => reject(error)));
+  });
+};
