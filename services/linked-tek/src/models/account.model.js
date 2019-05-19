@@ -90,5 +90,24 @@ exports.listSuggestion = (userData) => {
         resolve(ret);
       })
       .catch(error => reject(error));
-  });    
+  });
+};
+
+exports.getActualityFeed = (userData) => {
+  return new Promise((resolve, reject) => {
+    accountApi.getActualityFeed(userData) 
+      .then(res => {
+        const ret = res.records.map(record => {
+          const user = record.get('leader');
+          const item = record.get('item');
+
+          return {
+            user: Object.assign({ id: user.identity.low }, user.properties),
+            data: Object.assign({ id: item.identity.low, target: item.labels[0] }, item.properties)
+          };
+        });
+        resolve(ret);
+      })
+      .catch(error => reject(error));
+  });
 };

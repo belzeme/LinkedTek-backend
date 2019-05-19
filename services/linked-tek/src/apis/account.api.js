@@ -105,3 +105,16 @@ exports.listSuggestion = ({ email }) => {
       .catch(error => session.close(() => reject(error)));
   });
 };
+
+exports.getActualityFeed = ({ email }) => {
+  const session = driver.session(neo4j.session.READ);
+
+  return new Promise((resolve, reject) => {
+    session.run(`
+      MATCH (:User {email: "${email}"})-[:FOLLOWS]-(leader)<-[:POST_FROM|:COMMENT_FROM]-(item)
+      RETURN item, leader
+    `)
+      .then(res => session.close(() => resolve(res)))
+      .catch(error => session.close(() => reject(error)));
+  });
+};

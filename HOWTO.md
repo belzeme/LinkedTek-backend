@@ -183,3 +183,26 @@ The list post routes return an array of object that respect the following shcema
     ...,
   ]
 ```
+
+### Actuality feed
+
+
+|method| route | body | response | detail |
+| --- | --- | --- | --- |
+| POST | gateway:3010/post/comment/list| {id: number}|| List the comments of a post |
+| POST | gateway:3010/comment/user | {email: string} || List the comments of an user
+
+#### Actuality feed response
+
+The list post routes return an array of object that respect the following shcema.
+
+``` json
+  [
+    {
+      "data": {"id": number, "content": string, "target": string, "title"?: string, "creation_time": string},
+      "user": {"id": number, "email": string, "name": string},
+      "post": {"id": number}
+    },
+    ...,
+  ]
+```

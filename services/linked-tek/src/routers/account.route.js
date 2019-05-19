@@ -27,4 +27,6 @@ router.post('/leader', accountController.validate('relationData'), accountContro
 router.delete('/leader', accountController.validate('relationData'), accountController.deleteLeader);
 
 router.post('/suggestion', accountController.validate('checkUser'), accountController.listSuggestion);
+router.post('/feed', accountController.validate('checkUser'), accountController.getActualityFeed);
+
 module.exports = router;

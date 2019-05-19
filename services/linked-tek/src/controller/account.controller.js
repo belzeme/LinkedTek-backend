@@ -115,5 +115,16 @@ exports.listSuggestion = (req, res) => {
 
   Account.listSuggestion(req.body)
     .then((resp) => res.send(resp))
-    .catch((error) => res.status(403).send({ detail: ` ${error}` })); 
+    .catch((error) => res.status(403).send({ detail: ` ${error}` }));
+};
+
+exports.getActualityFeed = (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+
+  Account.getActualityFeed(req.body)
+    .then((resp) => res.send(resp))
+    .catch((error) => res.status(403).send({ detail: ` ${error}` }));
 };
