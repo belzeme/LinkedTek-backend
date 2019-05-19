@@ -8,4 +8,5 @@ module.exports = {
   companyApi: require('./company.api'),
   userApi: require('./user.api'),
   postApi: require('./post.api'),
+  commentApi: require('./comment.api'),
 };

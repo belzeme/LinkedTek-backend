@@ -5,4 +5,5 @@ module.exports = {
   companyController: require('./company.controller'),
   userController: require('./user.controller'),
   postController: require('./post.controller'),
+  commentController: require('./comment.controller'),
 };

@@ -5,4 +5,5 @@ module.exports = {
   Company: require('./company.model'),
   User: require('./user.model'),
   Post: require('./post.model'),
+  Comment: require('./comment.model'),
 };

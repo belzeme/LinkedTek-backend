@@ -8,7 +8,8 @@ const { accountRouter,
   countryRouter,
   companyRouter,
   userRouter,
-  postRouter } = require('./routers');
+  postRouter,
+  commentRouter } = require('./routers');
 
 const app = express();
 
@@ -25,4 +26,5 @@ app.use('/api/country', countryRouter);
 app.use('/api/company', companyRouter);
 app.use('/api/user', userRouter);
 app.use('/api/post', postRouter);
+app.use('/api/comment', commentRouter);
 app.listen(port);

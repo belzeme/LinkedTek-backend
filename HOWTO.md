@@ -106,7 +106,7 @@ __NB__: target possible values are company or school
 | --- | --- | --- | --- |
 | PATCH | gateway:3010/company | {name: string, properties: {[{label: string, value: string}, ...]}} | [{name: string, description: string}]
 
-## Posts
+## Posts and comments
 
 ### Post creation
 
@@ -131,3 +131,9 @@ __NB__: target possible values are company or school
 |method| route | body | response |
 | --- | --- | --- | --- |
 | DELETE | gateway:3010/post| {id: number}|
+
+### Comment creation
+
+|method| route | body | response |
+| --- | --- | --- | --- |
+| POST | gateway:3010/post| {email: string, id: number, content: string}|

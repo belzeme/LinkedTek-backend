@@ -10,7 +10,7 @@ const countryRouter = require('./route/country.route');
 const companyRouter = require('./route/company.route');
 const userRouter = require('./route/user.route');
 const postRouter = require('./route/post.route');
-
+const commentRouter = require('./route/comment.route');
 const app = express();
 const port = process.env.PORT || 3010;
 
@@ -25,5 +25,6 @@ app.use('/country', countryRouter);
 app.use('/company', companyRouter);
 app.use('/user', userRouter);
 app.use('/post', postRouter);
+app.use('/comment', commentRouter);
 
 app.listen(port);
