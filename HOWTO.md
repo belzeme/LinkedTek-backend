@@ -212,3 +212,22 @@ The list post routes return an array of object that respect the following shcema
     ...,
   ]
 ```
+
+### Messages
+
+|method| route | body | response | detail |
+| --- | --- | --- | --- |
+| POST | gateway:3010/account/message| {email: string}|| Creates a message. |
+
+### Messages response
+
+``` json
+  [
+    {
+      "content": string,
+      "creation_time": string,
+      "id": number,
+      "title": string,
+    }
+  ]
+```

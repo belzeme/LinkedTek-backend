@@ -115,7 +115,13 @@ exports.getActualityFeed = (userData) => {
 exports.sendMessage = (messageData) => {
   return new Promise((resolve, reject) => {
     accountApi.sendMessage(messageData)
-      .then(res => resolve(res.records))
+      .then(res => {
+        const ret = res.records.map(record => {
+          const node = record.get('message');
+          return Object.assign({ id: node.identity.low }, node.properties); 
+        });
+        resolve(ret);
+      })
       .catch(error => reject(error));
   });
 };

@@ -23,6 +23,8 @@ router.get('/', (req, res) => {
       { method: 'POST', description: 'Create an leader', path: '/leader' },
       { method: 'POST', description: 'List an user leaders', path: '/leader/list' },
       { method: 'DELETE', description: 'Delete an user leader', path: '/leader' },
+
+      { method: 'POST', description: 'Send a message', path: '/message' }
     ]
   });
 });
@@ -100,6 +102,15 @@ router.post('/suggestion', (req, res) => {
 });
 
 router.post('/feed', (req, res) => {
+  api.post(req.path, req.body)
+    .then(resp => res.send(resp.data))
+    .catch(error => {
+      const adaptedError = errorHandler(error);
+      res.status(adaptedError.status).send(adaptedError.message);
+    });
+});
+
+router.post('/message', (req, res) => {
   api.post(req.path, req.body)
     .then(resp => res.send(resp.data))
     .catch(error => {
