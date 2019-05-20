@@ -27,6 +27,14 @@ exports.validate = (method) => {
       check('leader').exists().isEmail()
     ];
   }
+  case 'sendMessage': {
+    return [
+      check('sender').isEmail(),
+      check('receiver').isEmail(),
+      check('title').isString(),
+      check('content').isString()
+    ];
+  }
   }
 };
 
@@ -125,6 +133,17 @@ exports.getActualityFeed = (req, res) => {
   }
 
   Account.getActualityFeed(req.body)
+    .then((resp) => res.send(resp))
+    .catch((error) => res.status(403).send({ detail: ` ${error}` }));
+};
+
+exports.sendMessage = (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+
+  Account.sendMessage(req.body)
     .then((resp) => res.send(resp))
     .catch((error) => res.status(403).send({ detail: ` ${error}` }));
 };

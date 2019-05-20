@@ -29,4 +29,5 @@ router.delete('/leader', accountController.validate('relationData'), accountCont
 router.post('/suggestion', accountController.validate('checkUser'), accountController.listSuggestion);
 router.post('/feed', accountController.validate('checkUser'), accountController.getActualityFeed);
 
+router.post('/message', accountController.validate('sendMessage'), accountController.sendMessage);
 module.exports = router;

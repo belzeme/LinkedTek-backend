@@ -144,7 +144,6 @@ __NB__ The description, and email fields depends of the node's type. Namelly if 
 | --- | --- | --- | --- |
 | POST | gateway:3010/post/list| {email: string || id: number}| [{id: number, title: string, content: string}, ...]
 
-
 ### Post update
 
 |method| route | body | response |
@@ -197,7 +196,7 @@ The list post routes return an array of object that respect the following shcema
 
 |method| route | body | response | detail |
 | --- | --- | --- | --- |
-| POST | gateway:3010/account/feed| {email: string}|| Get the suggestions of a user. |
+| POST | gateway:3010/account/feed| {email: string}|| Get the actuality feed. |
 
 #### Actuality feed response
 

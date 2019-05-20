@@ -111,3 +111,11 @@ exports.getActualityFeed = (userData) => {
       .catch(error => reject(error));
   });
 };
+
+exports.sendMessage = (messageData) => {
+  return new Promise((resolve, reject) => {
+    accountApi.sendMessage(messageData)
+      .then(res => resolve(res.records))
+      .catch(error => reject(error));
+  });
+};

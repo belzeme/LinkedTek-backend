@@ -118,3 +118,18 @@ exports.getActualityFeed = ({ email }) => {
       .catch(error => session.close(() => reject(error)));
   });
 };
+
+exports.sendMessage = ({ sender, title, content, receiver }) => {
+  const session = driver.session(neo4j.session.WRITE);
+
+  return new Promise((resolve, reject) => {
+    session.run(`
+      MATCH (sender:User {email: "${sender}"}), (receiver:User {email: "${receiver}"})
+      CREATE (message:Message {title: "${title}", content: "${content}", creation_time: "${new Date().toISOString()}"})
+      CREATE (sender)<-[:MESSAGE_FROM]-(message)-[:MESSAGE_TO]->(receiver)
+      return message
+      `)
+      .then(res => session.close(() => resolve(res)))
+      .catch(error => session.close(() => reject(error)));
+  });
+};
