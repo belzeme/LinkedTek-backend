@@ -119,4 +119,22 @@ router.post('/message', (req, res) => {
     });
 });
 
+router.post('/inbox', (req, res) => {
+  api.post(req.path, req.body)
+    .then(resp => res.send(resp.data))
+    .catch(error => {
+      const adaptedError = errorHandler(error);
+      res.status(adaptedError.status).send(adaptedError.message);
+    });
+});
+
+router.post('/outbox', (req, res) => {
+  api.post(req.path, req.body)
+    .then(resp => res.send(resp.data))
+    .catch(error => {
+      const adaptedError = errorHandler(error);
+      res.status(adaptedError.status).send(adaptedError.message);
+    });
+});
+
 module.exports = router;

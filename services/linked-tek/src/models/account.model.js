@@ -125,3 +125,32 @@ exports.sendMessage = (messageData) => {
       .catch(error => reject(error));
   });
 };
+
+exports.inbox = (userData) => {
+  return new Promise((resolve, reject) => {
+    accountApi.inbox(userData)
+      .then(res => {
+        const ret = res.records.map(record => {
+          const node = record.get('message');
+          return Object.assign({ id: node.identity.low }, node.properties);
+        });
+        resolve(ret);
+      })
+      .catch(error => reject(error));
+  });
+};
+
+
+exports.outbox = (userData) => {
+  return new Promise((resolve, reject) => {
+    accountApi.outbox(userData)
+      .then(res => {
+        const ret = res.records.map(record => {
+          const node = record.get('message');
+          return Object.assign({ id: node.identity.low }, node.properties);
+        });
+        resolve(ret);
+      })
+      .catch(error => reject(error));
+  });
+};

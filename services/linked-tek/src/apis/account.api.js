@@ -133,3 +133,29 @@ exports.sendMessage = ({ sender, title, content, receiver }) => {
       .catch(error => session.close(() => reject(error)));
   });
 };
+
+exports.inbox = ({ email }) => {
+  const session = driver.session(neo4j.session.READ);
+
+  return new Promise((resolve, reject) => {
+    session.run(`
+      MATCH (:User {email: "${email}"})<-[:MESSAGE_TO]-(message)
+      RETURN message
+    `)
+      .then(res => session.close(() => resolve(res)))
+      .catch(error => session.close(() => reject(error)));
+  });
+};
+
+exports.outbox = ({ email }) => {
+  const session = driver.session(neo4j.session.READ);
+
+  return new Promise((resolve, reject) => {
+    session.run(`
+      MATCH (:User {email: "${email}"})<-[:MESSAGE_FROM]-(message)
+      RETURN message
+    `)
+      .then(res => session.close(() => resolve(res)))
+      .catch(error => session.close(() => reject(error)));
+  });
+};

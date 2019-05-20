@@ -30,4 +30,6 @@ router.post('/suggestion', accountController.validate('checkUser'), accountContr
 router.post('/feed', accountController.validate('checkUser'), accountController.getActualityFeed);
 
 router.post('/message', accountController.validate('sendMessage'), accountController.sendMessage);
+router.post('/inbox', accountController.validate('checkUser'), accountController.inbox);
+router.post('/outbox', accountController.validate('checkUser'), accountController.outbox);
 module.exports = router;

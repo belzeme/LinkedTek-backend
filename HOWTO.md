@@ -217,7 +217,9 @@ The list post routes return an array of object that respect the following shcema
 
 |method| route | body | response | detail |
 | --- | --- | --- | --- |
-| POST | gateway:3010/account/message| {email: string}|| Creates a message. |
+| POST | gateway:3010/account/message| {sender: string, receiver: string, title: string, content: string}|| Creates a message. |
+| POST | gateway:3010/account/inbox| {email: string}|| List the received messages. |
+| POST | gateway:3010/account/outbox| {email: string}|| List the send messages. |
 
 ### Messages response
 
