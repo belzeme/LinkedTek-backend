@@ -139,8 +139,8 @@ exports.inbox = ({ email }) => {
 
   return new Promise((resolve, reject) => {
     session.run(`
-      MATCH (:User {email: "${email}"})<-[:MESSAGE_TO]-(message)
-      RETURN message
+      MATCH (:User {email: "${email}"})<-[:MESSAGE_TO]-(message)-[:MESSAGE_FROM]->(sender)
+      RETURN message, sender
     `)
       .then(res => session.close(() => resolve(res)))
       .catch(error => session.close(() => reject(error)));

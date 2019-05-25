@@ -230,6 +230,7 @@ The list post routes return an array of object that respect the following shcema
       "creation_time": string,
       "id": number,
       "title": string,
+      "sender" || "receiver": object,
     }
   ]
 ```

@@ -131,8 +131,12 @@ exports.inbox = (userData) => {
     accountApi.inbox(userData)
       .then(res => {
         const ret = res.records.map(record => {
-          const node = record.get('message');
-          return Object.assign({ id: node.identity.low }, node.properties);
+          const message = record.get('message');
+          const sender = record.get('sender');
+
+          const ret = Object.assign({ id: message.identity.low }, message.properties);
+          ret.sender = Object.assign({ id: sender.identity.low }, sender.properties);
+          return ret;
         });
         resolve(ret);
       })

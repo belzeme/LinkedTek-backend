@@ -27,21 +27,21 @@ services:
     networks: 
       - backend
 
-  # linked-tek-service:
-  #   container_name: linked-tek-service
-  #   build: ./services/linked-tek/
-  #   ports: 
-  #     - "3020:3000"
-  #   environment:
-  #     - RELATION_DB_URL=bolt://neo4j:7687
-  #     - RELATION_DB_USER=linkedtek-account-service
-  #     - RELATION_DB_PASS=linkedtek
-  #   links:
-  #     - neo4j
-  #   depends_on:
-  #     - neo4j
-  #   networks: 
-  #     - backend
+  linked-tek-service:
+    container_name: linked-tek-service
+    build: ./services/linked-tek/
+    ports: 
+      - "3020:3000"
+    environment:
+      - RELATION_DB_URL=bolt://neo4j:7687
+      - RELATION_DB_USER=linkedtek-account-service
+      - RELATION_DB_PASS=linkedtek
+    links:
+      - neo4j
+    depends_on:
+      - neo4j
+    networks: 
+      - backend
 
 
   authentication-service:
@@ -50,7 +50,7 @@ services:
     ports:
       - "3030:3030"
     links:
-      # - linked-tek-service
+      - linked-tek-service
       - mongo
     depends_on:
       - mongo
@@ -64,11 +64,11 @@ services:
     ports:
       - "3010:3010"
     links:
-      # - linked-tek-service
+      - linked-tek-service
       - authentication-service
     depends_on:
       - authentication-service
-      # - linked-tek-service
+      - linked-tek-service
     networks: 
       - backend
     environment:
