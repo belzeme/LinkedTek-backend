@@ -152,8 +152,8 @@ exports.outbox = ({ email }) => {
 
   return new Promise((resolve, reject) => {
     session.run(`
-      MATCH (:User {email: "${email}"})<-[:MESSAGE_FROM]-(message)
-      RETURN message
+      MATCH (:User {email: "${email}"})<-[:MESSAGE_FROM]-(message)-[:MESSAGE_TO]->(receiver)
+      RETURN message, receiver
     `)
       .then(res => session.close(() => resolve(res)))
       .catch(error => session.close(() => reject(error)));

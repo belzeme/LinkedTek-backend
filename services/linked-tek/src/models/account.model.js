@@ -146,8 +146,12 @@ exports.outbox = (userData) => {
     accountApi.outbox(userData)
       .then(res => {
         const ret = res.records.map(record => {
-          const node = record.get('message');
-          return Object.assign({ id: node.identity.low }, node.properties);
+          const message = record.get('message');
+          const receiver = record.get('receiver');
+
+          const ret = Object.assign({ id: message.identity.low }, message.properties);
+          ret.receiver = Object.assign({ id: receiver.identity.low }, receiver.properties);
+          return ret;
         });
         resolve(ret);
       })
