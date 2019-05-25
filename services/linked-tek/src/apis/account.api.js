@@ -159,3 +159,62 @@ exports.outbox = ({ email }) => {
       .catch(error => session.close(() => reject(error)));
   });
 };
+
+exports.patchProfileCompany = (email, company) => {
+  const session = driver.session(neo4j.session.WRITE);
+
+  return new Promise((resolve, reject) => {
+    if (!company) {
+      resolve();
+      return;
+    }
+    session.run(`
+    MATCH (u: User {email: "${email}"})
+    OPTIONAL MATCH (u)-[r:WORK_AT]->()
+    DETACH r
+    CREATE (u)-[:WORK_AT]-(:Company {name: "${company.value}"})
+    `)
+      .then(res => session.close(() => {
+        resolve(res);
+      }))
+      .catch(error => session.close(() => reject(error)));
+  });
+};
+
+exports.patchProfileCountry = (email, country) => {
+  const session = driver.session(neo4j.session.WRITE);
+
+  return new Promise((resolve, reject) => {
+    if (!country) {
+      resolve();
+      return;
+    }
+    session.run(`
+    MATCH (user:User {email: "${email}"}), (country: Country {name: "${country}"})
+    OPTIONAL MATCH (user)-[r:USER_FROM]->()
+    DELETE r
+    CREATE (user)-[:USER_FROM]->(country)})
+    `)
+      .then(res => session.close(() => {
+        resolve(res);
+      }))
+      .catch(error => session.close(() => reject(error)));
+  });
+};
+
+exports.patchProfile = ({ email, properties }) => {
+  const session = driver.session(neo4j.session.WRITE);
+
+  return new Promise((resolve, reject) => {
+    const querySet = properties
+      .filter(property => property.label !== 'country' && property.label !== 'company')
+      .map(property => `SET user.${property.label} = ${property.value}`);
+    
+    session.run(`
+        MATCH (user:User {email: "${email}"})
+        ${querySet.join('\n')}
+    `)
+      .then((res) => resolve(res))
+      .catch((error) => session.close(() => reject(error)));
+  });
+};

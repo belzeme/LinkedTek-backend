@@ -154,3 +154,39 @@ exports.outbox = (userData) => {
       .catch(error => reject(error));
   });
 };
+
+exports.patchProfile = (profileData) => {
+  return new Promise((resolve, reject) => {
+    accountApi.patchProfile(profileData)
+      .then(res => {
+        resolve(res);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+
+exports.patchProfileCountry = (profileData) => {
+  return new Promise((resolve, reject) => {
+    accountApi.patchProfileCountry(profileData)
+      .then(res => {
+        resolve(res);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+
+exports.patchProfileCompany = (profileData) => {
+  return new Promise((resolve, reject) => {
+    accountApi.patchProfileCompany(profileData)
+      .then(res => {
+        resolve(res);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
