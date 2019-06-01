@@ -202,13 +202,22 @@ exports.patchProfileCountry = (email, country) => {
   });
 };
 
+const mapPatchProperty = (property) => {
+  if (typeof property.value === 'number') {
+    return `SET user.${property.label} = ${property.value}`; 
+  } else {
+    return `SET user.${property.label} = "${property.value}"`;
+  }
+};
+
+const filterPatchProperties = (properties) => properties.filter(property => property.label !== 'country' && property.label !== 'company');
+
 exports.patchProfile = ({ email, properties }) => {
   const session = driver.session(neo4j.session.WRITE);
 
   return new Promise((resolve, reject) => {
-    const querySet = properties
-      .filter(property => property.label !== 'country' && property.label !== 'company')
-      .map(property => `SET user.${property.label} = ${property.value}`);
+    const querySet = filterPatchProperties(properties)
+      .map(property => mapPatchProperty(property));
     
     session.run(`
         MATCH (user:User {email: "${email}"})
