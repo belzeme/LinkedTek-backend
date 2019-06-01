@@ -225,8 +225,9 @@ exports.getProfile = ({ email }) => {
 
   return new Promise((resolve, reject) => {
     session.run(`
-      MATCH (user: User{email: "${email}"})-[:USER_FROM]->(country)
-      MATCH (user)-[job:WORK_AT]-(company)
+      MATCH (user: User{email: "${email}"})
+      OPTIONAL MATCH (user)-[:USER_FROM]->(country)
+      OPTIONAL MATCH (user)-[job:WORK_AT]-(company)
       RETURN user, country, company, job
     `)
       .then(res => session.close(() => resolve(res)))

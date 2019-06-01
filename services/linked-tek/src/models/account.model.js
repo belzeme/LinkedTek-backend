@@ -201,10 +201,16 @@ exports.getProfile = (profileData) => {
           { id: user.identity.low }, {
             name: user.properties.name,
             email: user.properties.email,
-            age: user.properties.age.low
+            age: user.properties.age ? user.properties.age.low : undefined
           });
+
+        if (country) {
         ret.country = Object.assign({ id: country.identity.low }, country.properties);
+        }
+
+        if (company && job) {
         ret.company = Object.assign({ id: company.identity.low, since: job.properties.from }, company.properties);
+        }
         resolve(ret);
       })
       .catch(error => reject(error));
