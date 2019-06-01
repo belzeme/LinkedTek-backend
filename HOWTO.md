@@ -181,6 +181,69 @@ For now the possible properties for an user edition are: name, and age.
 }
 ```
 
+### User study history
+
+|POST| gateway:3010/account/profile/history/study/list | {email: string} | User study History response |
+| POST | gateway:3010/account/profile/history/study/ | User study History creation |
+
+#### User study history response
+
+``` json
+[
+    {
+        "study": {
+            "title": "x2 cursus bitches",
+            "from": "2019-01-01T00:00:00.000Z",
+            "to": "2023-01-01T00:00:00.000Z"
+        },
+        "school": {
+            "id": 57,
+            "name": "epitech",
+            "description": "procoder"
+        }
+    },
+    {
+        "study": {
+            "title": "from zero to 1",
+            "from": "2019-01-01T00:00:00.000Z",
+            "to": "2022-01-01T00:00:00.000Z"
+        },
+        "school": {
+            "id": 57,
+            "name": "epitech",
+            "description": "procoder"
+        }
+    },
+    {
+        "study": {
+            "title": "ennemy conversion",
+            "from": "2014-01-01T00:00:00.000Z",
+            "to": "2019-01-01T00:00:00.000Z"
+        },
+        "school": {
+            "id": 91,
+            "name": "Wololo",
+            "description": "From Red to Blue"
+        }
+    }
+]
+```
+
+#### User study history creation
+
+```json
+{
+  "email": "test@email.com",
+  "school": "epitech",
+  "study": {
+    "from": "2019-01-01",
+    "to": "2023-01-01",
+    "title": "x2 cursus bitches"
+  }
+}
+
+```
+
 ## Country
 
 ### List
