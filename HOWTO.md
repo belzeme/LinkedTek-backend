@@ -76,8 +76,8 @@ __NB__ The description, and email fields depends of the node's type. Namelly if 
 | --- | --- | --- | --- |
 | POST | gateway:3010/account/profile | {email: string} | UserProfile
 | PATCH | gateway:3010/account/profile | {email: string, properties: {[{label: string, value: string}, ...]}}| |
-| PATCH | gateway:3010/account/job | {email: string, company: string, title: string} | |
-| PATCH | gateway:3010/account/country | {email: string, conutry: string} ||
+| PATCH | gateway:3010/account/profile/job | {email: string, company: string, title: string} | |
+| PATCH | gateway:3010/account/profile/country | {email: string, conutry: string} ||
 
 #### User edition patch content
 
