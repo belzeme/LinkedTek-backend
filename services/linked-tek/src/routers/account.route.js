@@ -42,4 +42,7 @@ router.patch('/profile/job', accountController.validate('updateProfileCompany'),
 router.post('/profile/history/job', accountController.validate('addJob'), accountController.addJob);
 router.post('/profile/history/job/list', accountController.validate('checkUser'), accountController.getJobHistory);
 
+router.post('/profile/history/study', accountController.validate('addStudy'), accountController.addStudy);
+router.post('/profile/history/study/list', accountController.validate('checkUser'), accountController.getStudyHistory);
+
 module.exports = router;

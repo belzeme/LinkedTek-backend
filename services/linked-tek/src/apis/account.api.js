@@ -286,3 +286,29 @@ exports.getJobHistory = ({ email }) => {
       .catch(error => session.close(() => reject(error)));
   });
 };
+
+exports.addStudy = ({ email, school, study }) => {
+  const session = driver.session(neo4j.session.WRITE);
+
+  return new Promise((resolve, reject) => {
+    session.run(`
+      MATCH (user:User {email: "${email}"}), (school:School {name: "${school}"})
+      CREATE (user)-[:STUDIED_AT {from: "${new Date(study.from).toISOString()}", to: "${new Date(study.to).toISOString()}", title: "${study.title}"}]->(school)
+    `)
+      .then(res => session.close(() => resolve(res)))
+      .catch(error => session.close(() => reject(error)));
+  });
+};
+
+exports.getStudyHistory = ({ email }) => {
+  const session = driver.session(neo4j.session.READ);
+
+  return new Promise((resolve, reject) => {
+    session.run(`
+      MATCH (:User {email:"${email}"})-[study:STUDIED_AT]->(school)
+      RETURN study, school
+    `)
+      .then(res => session.close(() => resolve(res)))
+      .catch(error => session.close(() => reject(error)));
+  });
+};
