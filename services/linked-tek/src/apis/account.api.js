@@ -173,21 +173,21 @@ const deleteProfileCurrentJob = (email) => {
   });
 };
 
-const setProfileCurrentJob = (email, company) => {
+const setProfileCurrentJob = (email, company, title) => {
   const session = driver.session(neo4j.session.WRITE);
 
   return new Promise((resolve, reject) => {
     session.run(`
       MATCH (user:User {email: "${email}"}), (company:Company {name: "${company}"})
-      CREATE (user)-[:WORK_AT {from: "${new Date().toISOString()}"}]->(company)
+      CREATE (user)-[:WORK_AT {from: "${new Date().toISOString()}", title: "${title}"}]->(company)
     `)
       .then(res => session.close(() => resolve(res)))
       .catch(error => session.close(() => reject(error)));
   });
 };
-exports.patchProfileCurrentJob = ({ email, company }) => {
+exports.patchProfileCurrentJob = ({ email, company, title }) => {
   return deleteProfileCurrentJob(email)
-    .then(() => setProfileCurrentJob(email, company));
+    .then(() => setProfileCurrentJob(email, company, title));
 };
 
 const deleteProfileCountry = (email) => {

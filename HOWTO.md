@@ -76,7 +76,7 @@ __NB__ The description, and email fields depends of the node's type. Namelly if 
 | --- | --- | --- | --- |
 | POST | gateway:3010/account/profile | {email: string} | UserProfile
 | PATCH | gateway:3010/account/profile | {email: string, properties: {[{label: string, value: string}, ...]}}| |
-| PATCH | gateway:3010/account/job | {email: string, company: string} | |
+| PATCH | gateway:3010/account/job | {email: string, company: string, title: string} | |
 | PATCH | gateway:3010/account/country | {email: string, conutry: string} ||
 
 #### User edition patch content
@@ -96,7 +96,7 @@ For now the possible properties for an user edition are: name, and age.
 #### User fetch profile response
 
 ``` json
-  {
+{
     "id": 757,
     "name": "tati",
     "email": "test@email.com",
@@ -107,9 +107,12 @@ For now the possible properties for an user edition are: name, and age.
     },
     "company": {
         "id": 77,
-        "since": "2019-06-01T13:04:40.769Z",
         "name": "acme",
         "description": "Will E Coyotte Doom"
+    },
+    "job": {
+        "since": "2019-06-01T14:02:53.437Z",
+        "title": "loler"
     }
 }
 ```

@@ -208,8 +208,12 @@ exports.getProfile = (profileData) => {
         ret.country = Object.assign({ id: country.identity.low }, country.properties);
         }
 
-        if (company && job) {
-        ret.company = Object.assign({ id: company.identity.low, since: job.properties.from }, company.properties);
+        if (company) {
+          ret.company = Object.assign({ id: company.identity.low }, company.properties);
+        }
+
+        if (job) {
+          ret.job = { since: job.properties.from, title: job.properties.title };
         }
         resolve(ret);
       })

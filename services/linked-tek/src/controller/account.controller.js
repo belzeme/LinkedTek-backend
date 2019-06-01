@@ -50,7 +50,8 @@ exports.validate = (method) => {
   case 'updateProfileCompany': {
     return [
       check('email').isEmail(),
-      check('company').isString()
+      check('company').isString(),
+      check('title').isString()
     ];
   }
   }
