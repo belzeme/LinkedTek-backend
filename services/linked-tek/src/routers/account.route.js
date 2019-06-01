@@ -35,7 +35,11 @@ router.post('/outbox', accountController.validate('checkUser'), accountControlle
 
 router.post('/profile', accountController.validate('checkUser'), accountController.getProfile);
 router.patch('/profile', accountController.validate('updateProfileData'), accountController.patchProfile);
+
 router.patch('/profile/country', accountController.validate('updateProfileCountry'), accountController.patchProfileCountry);
 router.patch('/profile/job', accountController.validate('updateProfileCompany'), accountController.patchProfileCurrentJob);
+
+router.post('/profile/history/job', accountController.validate('addJob'), accountController.addJob);
+router.post('/profile/history/job/list', accountController.validate('checkUser'), accountController.getJobHistory);
 
 module.exports = router;

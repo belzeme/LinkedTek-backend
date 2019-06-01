@@ -205,7 +205,7 @@ exports.getProfile = (profileData) => {
           });
 
         if (country) {
-        ret.country = Object.assign({ id: country.identity.low }, country.properties);
+          ret.country = Object.assign({ id: country.identity.low }, country.properties);
         }
 
         if (company) {
@@ -230,5 +230,32 @@ exports.patchProfileCurrentJob = (profileData) => {
       .catch(error => {
         reject(error);
       });
+  });
+};
+
+exports.addJob = (jobData) => {
+  return new Promise((resolve, reject) => {
+    accountApi.addJob(jobData)
+      .then(res => resolve(res))
+      .catch(error => reject(error));
+  });
+};
+
+exports.getJobHistory = (jobData) => {
+  return new Promise((resolve, reject) => {
+    accountApi.getJobHistory(jobData)
+      .then(res => {
+        const jobHistory = res.records.map(record => {
+          const job = record.get('job');
+          const company = record.get('company');
+          const ret = {
+            job: job.properties,
+            company: Object.assign({ id: company.identity.low }, company.properties)
+          };
+          return ret;
+        });
+        resolve(jobHistory);
+      })
+      .catch(error => reject(error));
   });
 };

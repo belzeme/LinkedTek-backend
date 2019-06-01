@@ -260,3 +260,29 @@ exports.patchProfile = ({ email, properties }) => {
       .catch((error) => session.close(() => reject(error)));
   });
 };
+
+exports.addJob = ({ email, company, job }) => {
+  const session = driver.session(neo4j.session.WRITE);
+
+  return new Promise((resolve, reject) => {
+    session.run(`
+      MATCH (user:User {email: "${email}"}), (company:Company {name: "${company}"})
+      CREATE (user)-[:WORKED_AT {from: "${new Date(job.from).toISOString()}", to: "${new Date(job.to).toISOString()}", title: "${job.title}"}]->(company)
+    `)
+      .then(res => session.close(() => resolve(res)))
+      .catch(error => session.close(() => reject(error)));
+  });
+};
+
+exports.getJobHistory = ({ email }) => {
+  const session = driver.session(neo4j.session.READ);
+
+  return new Promise((resolve, reject) => {
+    session.run(`
+      MATCH (:User {email:"${email}"})-[job:WORKED_AT]->(company)
+      RETURN job, company
+    `)
+      .then(res => session.close(() => resolve(res)))
+      .catch(error => session.close(() => reject(error)));
+  });
+};

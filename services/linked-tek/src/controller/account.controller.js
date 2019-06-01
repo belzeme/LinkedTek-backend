@@ -54,6 +54,13 @@ exports.validate = (method) => {
       check('title').isString()
     ];
   }
+  case 'addJob': {
+    return [
+      check('email').isEmail(),
+      check('company').isString(),
+      check('job').exists()
+    ];
+  }
   }
 };
 
@@ -238,6 +245,30 @@ exports.patchProfileCurrentJob = (req, res) => {
   }
 
   Account.patchProfileCurrentJob(req.body)
+    .then((resp) => res.send(resp))
+    .catch((error) => res.status(403).send({ detail: ` ${error}` }));
+};
+
+exports.addJob = (req, res) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+
+  Account.addJob(req.body)
+    .then((resp) => res.send(resp))
+    .catch((error) => res.status(403).send({ detail: ` ${error}` }));
+};
+
+exports.getJobHistory = (req, res) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+
+  Account.getJobHistory(req.body)
     .then((resp) => res.send(resp))
     .catch((error) => res.status(403).send({ detail: ` ${error}` }));
 };
