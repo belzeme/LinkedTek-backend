@@ -35,6 +35,24 @@ exports.validate = (method) => {
       check('content').isString()
     ];
   }
+  case 'updateProfileData': {
+    return [
+      check('email').isEmail(),
+      check('properties').isArray()
+    ];
+  }
+  case 'updateProfileCountry': {
+    return [
+      check('email').isEmail(),
+      check('country').isString()
+    ];
+  }
+  case 'updateProfileCompany': {
+    return [
+      check('email').isEmail(),
+      check('company').isString()
+    ];
+  }
   }
 };
 
@@ -169,6 +187,42 @@ exports.outbox = (req, res) => {
   }
 
   Account.outbox(req.body)
+    .then((resp) => res.send(resp))
+    .catch((error) => res.status(403).send({ detail: ` ${error}` }));
+};
+
+exports.patchProfile = (req, res) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+
+  Account.patchProfile(req.body)
+    .then((resp) => res.send(resp))
+    .catch((error) => res.status(403).send({ detail: ` ${error}` }));
+};
+
+exports.patchProfileCountry = (req, res) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+
+  Account.patchProfileCountry(req.body)
+    .then((resp) => res.send(resp))
+    .catch((error) => res.status(403).send({ detail: ` ${error}` }));
+};
+
+exports.patchProfileCompany = (req, res) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+
+  Account.patchProfileCompany(req.body)
     .then((resp) => res.send(resp))
     .catch((error) => res.status(403).send({ detail: ` ${error}` }));
 };

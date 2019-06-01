@@ -70,6 +70,12 @@ __NB__ The description, and email fields depends of the node's type. Namelly if 
 | --- | --- | --- | --- |
 | POST | gateway:3010/user/list | {name: string} |
 
+### User edition
+
+| method | route | body | response |
+| --- | --- | --- | --- |
+| PATCH | gateway:3010/account/profile | {name: string} | {id: number, properties: {[{label: string, value: string}, ...]}}
+
 ## Country
 
 ### List
@@ -165,7 +171,7 @@ __NB__ The description, and email fields depends of the node's type. Namelly if 
 ### List post's comment
 
 |method| route | body | response | detail |
-| --- | --- | --- | --- |
+| --- | --- | --- | --- | --- |
 | POST | gateway:3010/post/comment/list| {id: number}|| List the comments of a post |
 | POST | gateway:3010/comment/user | {email: string} || List the comments of an user
 
@@ -195,7 +201,7 @@ The list post routes return an array of object that respect the following shcema
 ### Actuality feed
 
 |method| route | body | response | detail |
-| --- | --- | --- | --- |
+| --- | --- | --- | --- | --- |
 | POST | gateway:3010/account/feed| {email: string}|| Get the actuality feed. |
 
 #### Actuality feed response
@@ -216,10 +222,10 @@ The list post routes return an array of object that respect the following shcema
 ### Messages
 
 |method| route | body | response | detail |
-| --- | --- | --- | --- |
-| POST | gateway:3010/account/message| {sender: string, receiver: string, title: string, content: string}|| Creates a message. |
-| POST | gateway:3010/account/inbox| {email: string}|| List the received messages. |
-| POST | gateway:3010/account/outbox| {email: string}|| List the send messages. |
+| --- | --- | --- | --- | --- |
+| POST | gateway:3010/account/message | {sender: string, receiver: string, title: string, content: string}|| Creates a message. |
+| POST | gateway:3010/account/inbox | {email: string}|| List the received messages. |
+| POST | gateway:3010/account/outbox | {email: string}|| List the send messages. |
 
 ### Messages response
 
