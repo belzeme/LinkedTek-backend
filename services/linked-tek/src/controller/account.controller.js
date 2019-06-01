@@ -61,6 +61,13 @@ exports.validate = (method) => {
       check('job').exists()
     ];
   }
+  case 'addStudy': {
+    return [
+      check('email').isEmail(),
+      check('school').isString(),
+      check('study').exists()
+    ];
+  }
   }
 };
 
@@ -269,6 +276,30 @@ exports.getJobHistory = (req, res) => {
   }
 
   Account.getJobHistory(req.body)
+    .then((resp) => res.send(resp))
+    .catch((error) => res.status(403).send({ detail: ` ${error}` }));
+};
+
+exports.addStudy = (req, res) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+
+  Account.addStudy(req.body)
+    .then((resp) => res.send(resp))
+    .catch((error) => res.status(403).send({ detail: ` ${error}` }));
+};
+
+exports.getStudyHistory = (req, res) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+
+  Account.getStudyHistory(req.body)
     .then((resp) => res.send(resp))
     .catch((error) => res.status(403).send({ detail: ` ${error}` }));
 };

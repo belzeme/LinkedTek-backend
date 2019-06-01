@@ -259,3 +259,30 @@ exports.getJobHistory = (jobData) => {
       .catch(error => reject(error));
   });
 };
+
+exports.addStudy = (studyData) => {
+  return new Promise((resolve, reject) => {
+    accountApi.addStudy(studyData)
+      .then(res => resolve(res))
+      .catch(error => reject(error));
+  });
+};
+
+exports.getStudyHistory = (studyData) => {
+  return new Promise((resolve, reject) => {
+    accountApi.getStudyHistory(studyData)
+      .then(res => {
+        const studyHistory = res.records.map(record => {
+          const study = record.get('study');
+          const school = record.get('school');
+          const ret = {
+            study: study.properties,
+            school: Object.assign({ id: school.identity.low }, school.properties)
+          };
+          return ret;
+        });
+        resolve(studyHistory);
+      })
+      .catch(error => reject(error));
+  });
+};
