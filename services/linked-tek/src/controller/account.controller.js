@@ -191,6 +191,19 @@ exports.outbox = (req, res) => {
     .catch((error) => res.status(403).send({ detail: ` ${error}` }));
 };
 
+
+exports.getProfile = (req, res) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+
+  Account.getProfile(req.body)
+    .then((resp) => res.send(resp))
+    .catch((error) => res.status(403).send({ detail: ` ${error}` }));
+};
+
 exports.patchProfile = (req, res) => {
   const errors = validationResult(req);
 
@@ -214,6 +227,7 @@ exports.patchProfileCountry = (req, res) => {
     .then((resp) => res.send(resp))
     .catch((error) => res.status(403).send({ detail: ` ${error}` }));
 };
+
 
 exports.patchProfileCompany = (req, res) => {
   const errors = validationResult(req);

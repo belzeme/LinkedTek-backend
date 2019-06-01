@@ -187,6 +187,22 @@ exports.patchProfileCountry = (profileData) => {
   });
 };
 
+exports.getProfile = (profileData) => {
+  return new Promise((resolve, reject) => {
+    accountApi.getProfile(profileData)
+      .then(res => {
+        const userRecord = res.records[0].get('user');
+        const ret = Object.assign({ id: userRecord.identity.low }, {
+          name: userRecord.properties.name,
+          email: userRecord.properties.email,
+          age: userRecord.properties.age.low
+        });
+        resolve(ret);
+      })
+      .catch(error => reject(error));
+  });
+};
+
 exports.patchProfileCompany = (profileData) => {
   return new Promise((resolve, reject) => {
     accountApi.patchProfileCompany(profileData)

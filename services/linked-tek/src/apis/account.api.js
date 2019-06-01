@@ -202,6 +202,20 @@ exports.patchProfileCountry = (email, country) => {
   });
 };
 
+exports.getProfile = ({ email }) => {
+  const session = driver.session(neo4j.session.READ);
+
+  return new Promise((resolve, reject) => {
+    session.run(`
+      MATCH (user: User{email: "${email}"})
+      RETURN user
+    `)
+      .then(res => session.close(() => resolve(res)))
+      .catch(error => session.close(() => reject(error)));
+  });
+};
+
+
 const mapPatchProperty = (property) => {
   if (typeof property.value === 'number') {
     return `SET user.${property.label} = ${property.value}`; 

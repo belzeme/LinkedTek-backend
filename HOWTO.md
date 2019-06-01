@@ -74,6 +74,7 @@ __NB__ The description, and email fields depends of the node's type. Namelly if 
 
 | method | route | body | response |
 | --- | --- | --- | --- |
+| POST | gateway:3010/account/profile | {email: string} | UserProfile
 | PATCH | gateway:3010/account/profile | {name: string} | {id: number, properties: {[{label: string, value: string}, ...]}}
 
 ## Country

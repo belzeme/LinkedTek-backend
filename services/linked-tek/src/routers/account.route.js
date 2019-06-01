@@ -33,6 +33,7 @@ router.post('/message', accountController.validate('sendMessage'), accountContro
 router.post('/inbox', accountController.validate('checkUser'), accountController.inbox);
 router.post('/outbox', accountController.validate('checkUser'), accountController.outbox);
 
+router.post('/profile', accountController.validate('checkUser'), accountController.getProfile);
 router.patch('/profile', accountController.validate('updateProfileData'), accountController.patchProfile);
 router.patch('/profile/country', accountController.validate('updateProfileCountry'), accountController.patchProfileCountry);
 router.patch('/profile/company', accountController.validate('updateProfileCompany'), accountController.patchProfileCompany);
