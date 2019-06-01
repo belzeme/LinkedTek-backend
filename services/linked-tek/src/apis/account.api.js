@@ -160,46 +160,64 @@ exports.outbox = ({ email }) => {
   });
 };
 
-exports.patchProfileCompany = (email, company) => {
+const deleteProfileCurrentJob = (email) => {
   const session = driver.session(neo4j.session.WRITE);
 
   return new Promise((resolve, reject) => {
-    if (!company) {
-      resolve();
-      return;
-    }
     session.run(`
-    MATCH (u: User {email: "${email}"})
-    OPTIONAL MATCH (u)-[r:WORK_AT]->()
-    DETACH r
-    CREATE (u)-[:WORK_AT]-(:Company {name: "${company.value}"})
+      MATCH (:User {email: "${email}"})-[r:WORK_AT]->()
+      DELETE r
     `)
-      .then(res => session.close(() => {
-        resolve(res);
-      }))
+      .then(() => session.close(() => resolve()))
+      .catch((error) => session.close(() => reject(error)));
+  });
+};
+
+const setProfileCurrentJob = (email, company) => {
+  const session = driver.session(neo4j.session.WRITE);
+
+  return new Promise((resolve, reject) => {
+    session.run(`
+      MATCH (user:User {email: "${email}"}), (company:Company {name: "${company}"})
+      CREATE (user)-[:WORK_AT {from: "${new Date().toISOString()}"}]->(company)
+    `)
+      .then(res => session.close(() => resolve(res)))
+      .catch(error => session.close(() => reject(error)));
+  });
+};
+exports.patchProfileCurrentJob = ({ email, company }) => {
+  return deleteProfileCurrentJob(email)
+    .then(() => setProfileCurrentJob(email, company));
+};
+
+const deleteProfileCountry = (email) => {
+  const session = driver.session(neo4j.session.WRITE);
+
+  return new Promise((resolve, reject) => {
+    session.run(`
+      MATCH(:User {email: "${email}"})-[r:USER_FROM]->()
+      DELETE r
+    `)
+      .then(res => session.close(() => resolve(res)))
       .catch(error => session.close(() => reject(error)));
   });
 };
 
-exports.patchProfileCountry = (email, country) => {
+const addProfileCountry = (email, country) => {
   const session = driver.session(neo4j.session.WRITE);
-
   return new Promise((resolve, reject) => {
-    if (!country) {
-      resolve();
-      return;
-    }
     session.run(`
-    MATCH (user:User {email: "${email}"}), (country: Country {name: "${country}"})
-    OPTIONAL MATCH (user)-[r:USER_FROM]->()
-    DELETE r
-    CREATE (user)-[:USER_FROM]->(country)})
+      MATCH (user: User {email: "${email}"}), (country: Country {name: "${country}"})
+      CREATE (user)-[:USER_FROM]->(country)
     `)
-      .then(res => session.close(() => {
-        resolve(res);
-      }))
-      .catch(error => session.close(() => reject(error)));
+      .then(() => session.close(() => resolve()))
+      .catch((error) => session.close(() => reject(error)));
   });
+};
+
+exports.patchProfileCountry = ({ email, country }) => {
+  return deleteProfileCountry(email)
+    .then(() => addProfileCountry(email, country));
 };
 
 exports.getProfile = ({ email }) => {
@@ -207,14 +225,14 @@ exports.getProfile = ({ email }) => {
 
   return new Promise((resolve, reject) => {
     session.run(`
-      MATCH (user: User{email: "${email}"})
-      RETURN user
+      MATCH (user: User{email: "${email}"})-[:USER_FROM]->(country)
+      MATCH (user)-[job:WORK_AT]-(company)
+      RETURN user, country, company, job
     `)
       .then(res => session.close(() => resolve(res)))
       .catch(error => session.close(() => reject(error)));
   });
 };
-
 
 const mapPatchProperty = (property) => {
   if (typeof property.value === 'number') {

@@ -70,12 +70,49 @@ __NB__ The description, and email fields depends of the node's type. Namelly if 
 | --- | --- | --- | --- |
 | POST | gateway:3010/user/list | {name: string} |
 
-### User edition
+### User personal data edition
 
 | method | route | body | response |
 | --- | --- | --- | --- |
 | POST | gateway:3010/account/profile | {email: string} | UserProfile
-| PATCH | gateway:3010/account/profile | {name: string} | {id: number, properties: {[{label: string, value: string}, ...]}}
+| PATCH | gateway:3010/account/profile | {email: string, properties: {[{label: string, value: string}, ...]}}| |
+| PATCH | gateway:3010/account/job | {email: string, company: string} | |
+| PATCH | gateway:3010/account/country | {email: string, conutry: string} ||
+
+#### User edition patch content
+
+For now the possible properties for an user edition are: name, and age.
+
+``` json
+  {
+  "email": "test@email.com",
+  "properties": [
+    {"label": "name", "value": "foo"},
+    {"label": "age", "value": 42}
+  ]
+}
+```
+
+#### User fetch profile response
+
+``` json
+  {
+    "id": 757,
+    "name": "tati",
+    "email": "test@email.com",
+    "age": 15,
+    "country": {
+        "id": 578,
+        "name": "France"
+    },
+    "company": {
+        "id": 77,
+        "since": "2019-06-01T13:04:40.769Z",
+        "name": "acme",
+        "description": "Will E Coyotte Doom"
+    }
+}
+```
 
 ## Country
 

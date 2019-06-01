@@ -191,21 +191,29 @@ exports.getProfile = (profileData) => {
   return new Promise((resolve, reject) => {
     accountApi.getProfile(profileData)
       .then(res => {
-        const userRecord = res.records[0].get('user');
-        const ret = Object.assign({ id: userRecord.identity.low }, {
-          name: userRecord.properties.name,
-          email: userRecord.properties.email,
-          age: userRecord.properties.age.low
-        });
+        const [record] = res.records;
+        const user = record.get('user');
+        const country = record.get('country');
+        const company = record.get('company');
+        const job = record.get('job');
+        
+        const ret = Object.assign(
+          { id: user.identity.low }, {
+            name: user.properties.name,
+            email: user.properties.email,
+            age: user.properties.age.low
+          });
+        ret.country = Object.assign({ id: country.identity.low }, country.properties);
+        ret.company = Object.assign({ id: company.identity.low, since: job.properties.from }, company.properties);
         resolve(ret);
       })
       .catch(error => reject(error));
   });
 };
 
-exports.patchProfileCompany = (profileData) => {
+exports.patchProfileCurrentJob = (profileData) => {
   return new Promise((resolve, reject) => {
-    accountApi.patchProfileCompany(profileData)
+    accountApi.patchProfileCurrentJob(profileData)
       .then(res => {
         resolve(res);
       })

@@ -229,14 +229,14 @@ exports.patchProfileCountry = (req, res) => {
 };
 
 
-exports.patchProfileCompany = (req, res) => {
+exports.patchProfileCurrentJob = (req, res) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
     return res.status(422).json({ errors: errors.array() });
   }
 
-  Account.patchProfileCompany(req.body)
+  Account.patchProfileCurrentJob(req.body)
     .then((resp) => res.send(resp))
     .catch((error) => res.status(403).send({ detail: ` ${error}` }));
 };
