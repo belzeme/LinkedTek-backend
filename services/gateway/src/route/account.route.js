@@ -173,4 +173,22 @@ router.patch('/profile/job', (req, res) => {
     });
 });
 
+router.post('/profile/history/job', (req, res) => {
+  api.post(req.path, req.body)
+    .then(resp => res.send(resp.data))
+    .catch(error => {
+      const adaptedError = errorHandler(error);
+      res.status(adaptedError.status).send(adaptedError.message);
+    });
+});
+
+router.post('/profile/history/job/list', (req, res) => {
+  api.post(req.path, req.body)
+    .then(resp => res.send(resp.data))
+    .catch(error => {
+      const adaptedError = errorHandler(error);
+      res.status(adaptedError.status).send(adaptedError.message);
+    });
+});
+
 module.exports = router;

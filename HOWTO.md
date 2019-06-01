@@ -117,6 +117,70 @@ For now the possible properties for an user edition are: name, and age.
 }
 ```
 
+### User job history
+
+| method | route | body | response |
+| --- | --- | --- | --- |
+|POST| gateway:3010/account/profile/history/job/list | {email: string} | User Job History response |
+| POST | gateway:3010/account/profile/history/job/ | User Job History creation |
+
+#### User Job history response
+
+``` json
+  [
+    {
+        "job": {
+            "title": "procoder",
+            "from": "2019-05-01T00:00:00.000Z",
+            "to": "2019-07-01T00:00:00.000Z"
+        },
+        "company": {
+            "id": 77,
+            "name": "acme",
+            "description": "Will E Coyotte Doom"
+        }
+    },
+    {
+        "job": {
+            "title": "terraformer",
+            "from": "2019-02-01T00:00:00.000Z",
+            "to": "2019-04-01T00:00:00.000Z"
+        },
+        "company": {
+            "id": 78,
+            "name": "ficsit",
+            "description": "construt, automate, explore and exploit"
+        }
+    },
+    {
+        "job": {
+            "title": "rockstar",
+            "from": "2019-01-01T00:00:00.000Z",
+            "to": "2019-02-01T00:00:00.000Z"
+        },
+        "company": {
+            "id": 77,
+            "name": "acme",
+            "description": "Will E Coyotte Doom"
+        }
+    }
+]
+```
+
+#### User Job History creation
+
+``` json
+{
+  "email": "test@email.com",
+  "company": "acme",
+  "job": {
+    "from": "2019-05-01",
+    "to": "2019-07-01",
+    "title": "procoder"
+  }
+}
+```
+
 ## Country
 
 ### List
